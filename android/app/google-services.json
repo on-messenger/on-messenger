@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "1071981934772",
+    "project_id": "tcc-on",
+    "storage_bucket": "tcc-on.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1071981934772:android:d5b3ac832612c89014bfe1",
+        "android_client_info": {
+          "package_name": "com.example.on_messenger"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1071981934772-6f7qlooao4ihhitfvqerjt2ivnv41dc4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.on_messenger",
+            "certificate_hash": "9194c980a7fb3c936e8a8788ab9eafbebbcf51e9"
+          }
+        },
+        {
+          "client_id": "1071981934772-ji3ch1fhbrvcm88epa9heuh81ocscpsd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDk8I48sfMYojtPtkvmqZdzBTt6rnhLzj0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1071981934772-ji3ch1fhbrvcm88epa9heuh81ocscpsd.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1071981934772-0mu34qmq657u11ksu9l3sl2d4ohmopiv.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.whatsappUi"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
