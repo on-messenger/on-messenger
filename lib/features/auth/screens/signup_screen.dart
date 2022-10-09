@@ -7,7 +7,7 @@ import 'package:on_messenger/common/widgets/custom_button.dart';
 import 'package:on_messenger/features/auth/controller/auth_controller.dart';
 
 class SignUpScreen extends ConsumerStatefulWidget {
-  static const routeName = '/login-screen';
+  static const routeName = '/signup-screen';
   const SignUpScreen({Key? key}) : super(key: key);
 
   @override
@@ -65,7 +65,7 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const Text('On will need to verify your email and password.'),
+              const Text('Crie sua conta'),
               const SizedBox(height: 5),
               Column(
                 children: [
@@ -94,7 +94,7 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
               SizedBox(
                 width: 90,
                 child: CustomButton(
-                  onPressed: sendEmail,
+                  onPressed: createAccount,
                   text: 'NEXT',
                 ),
               ),

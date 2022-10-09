@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -28,11 +29,13 @@ class AuthController {
     return user;
   }
 
-  void signInWithEmail(BuildContext context, String email, String password) async {
+  void signInWithEmail(
+      BuildContext context, String email, String password) async {
     authRepository.signInWithEmail(context, email, password);
   }
 
-  void signUpWithEmail(BuildContext context, String email, String password) async {
+  void signUpWithEmail(
+      BuildContext context, String email, String password) async {
     authRepository.signUpWithEmail(context, email, password);
   }
 
@@ -44,6 +47,10 @@ class AuthController {
       ref: ref,
       context: context,
     );
+    if (kDebugMode) {
+      print("entrou no controller");
+    }
+    authRepository.teste();
   }
 
   Stream<UserModel> userDataById(String userId) {

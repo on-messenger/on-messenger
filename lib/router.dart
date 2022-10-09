@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:on_messenger/common/widgets/error.dart';
 import 'package:on_messenger/features/auth/screens/login_screen.dart';
+import 'package:on_messenger/features/auth/screens/signup_screen.dart';
 import 'package:on_messenger/features/auth/screens/user_information_screen.dart';
 import 'package:on_messenger/features/group/screens/create_group_screen.dart';
 import 'package:on_messenger/features/select_contacts/screens/select_contacts_screen.dart';
@@ -20,6 +21,10 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     case LoginScreen.routeName:
       return MaterialPageRoute(
         builder: (context) => const LoginScreen(),
+      );
+    case SignUpScreen.routeName:
+      return MaterialPageRoute(
+        builder: (context) => const SignUpScreen(),
       );
     case UserInformationScreen.routeName:
       return MaterialPageRoute(

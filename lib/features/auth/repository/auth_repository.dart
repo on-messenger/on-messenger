@@ -2,10 +2,12 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:on_messenger/common/repositories/common_firebase_storage_repository.dart';
 import 'package:on_messenger/common/utils/utils.dart';
+import 'package:on_messenger/features/auth/screens/user_information_screen.dart';
 import 'package:on_messenger/models/user_model.dart';
 import 'package:on_messenger/mobile_layout_screen.dart';
 
@@ -37,7 +39,8 @@ class AuthRepository {
     return user;
   }
 
-  void signWithEmail2(BuildContext context, String email, String password) async {
+  void signWithEmail2(
+      BuildContext context, String email, String password) async {
     try {
       await auth.signInWithEmailAndPassword(email: email, password: password);
       Navigator.pushReplacement(
@@ -75,7 +78,8 @@ class AuthRepository {
   //   }
   // }
 
-  void signInWithEmail(BuildContext context, String email, String password) async {
+  void signInWithEmail(
+      BuildContext context, String email, String password) async {
     try {
       await auth.signInWithEmailAndPassword(email: email, password: password);
       Navigator.pushAndRemoveUntil(
@@ -90,17 +94,25 @@ class AuthRepository {
     }
   }
 
-  void signUpWithEmail(BuildContext context, String email, String password) async {
+  void signUpWithEmail(
+      BuildContext context, String email, String password) async {
     try {
-      await auth.createUserWithEmailAndPassword(email: email, password: password);
+      await auth.createUserWithEmailAndPassword(
+          email: email, password: password);
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => const LoginScreen(),
+          builder: (context) => const UserInformationScreen(),
         ),
       );
     } catch (e) {
       print(e);
+    }
+  }
+
+  void teste() {
+    if (kDebugMode) {
+      print('teste');
     }
   }
 
