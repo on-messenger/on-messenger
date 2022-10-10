@@ -124,11 +124,10 @@ class AuthRepository {
   }) async {
     try {
       String uid = auth.currentUser!.uid;
-      String photoUrl =
-          'https://png.pngitem.com/pimgs/s/649-6490124_katie-notopoulos-katienotopoulos-i-write-about-tech-round.png';
+      String photo = 'assets/user_null.png';
 
       if (profilePic != null) {
-        photoUrl = await ref
+        photo = await ref
             .read(commonFirebaseStorageRepositoryProvider)
             .storeFileToFirebase(
               'profilePic/$uid',
@@ -139,7 +138,7 @@ class AuthRepository {
       var user = UserModel(
         name: name,
         uid: uid,
-        profilePic: photoUrl,
+        profilePic: photo,
         isOnline: true,
         email: auth.currentUser!.email!,
         groupId: [],

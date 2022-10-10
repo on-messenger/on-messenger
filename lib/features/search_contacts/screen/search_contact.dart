@@ -40,7 +40,6 @@ class _SearchcCtState extends State<SearchcCt> {
   final searchController = TextEditingController();
   var doc = FirebaseFirestore.instance.collection('users').snapshots();
 
-
   @override
   void initState() {
     super.initState();
@@ -86,12 +85,19 @@ class _SearchcCtState extends State<SearchcCt> {
                     arguments: {
                       'name': snapshot.data?.docs[index]['name'] ?? '',
                       'uid': snapshot.data?.docs[index]['uid'] ?? '',
-                      'profilePic': snapshot.data?.docs[index]['profilePic'] ?? '',
-                      'isGroupChat': snapshot.data?.docs[index]['isGroupChat'] ?? '',
+                      'profilePic':
+                          snapshot.data?.docs[index]['profilePic'] ?? '',
+                      'isGroupChat':
+                          snapshot.data?.docs[index]['isGroupChat'] ?? '',
                     },
                   ),
                   title: Text(snapshot.data!.docs[index]['name']),
                   subtitle: Text(snapshot.data!.docs[index]['email']),
+                  leading: CircleAvatar(
+                    backgroundImage: NetworkImage(
+                      snapshot.data!.docs[index]['profilePic'],
+                    ),
+                  ),
                 );
               },
             );
