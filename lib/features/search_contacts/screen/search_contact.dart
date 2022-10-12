@@ -79,18 +79,19 @@ class _SearchcCtState extends State<SearchcCt> {
               itemCount: snapshot.data!.docs.length,
               itemBuilder: (context, index) {
                 return ListTile(
-                  onTap: () => Navigator.pushNamed(
-                    context,
-                    MobileChatScreen.routeName,
-                    arguments: {
-                      'name': snapshot.data?.docs[index]['name'] ?? '',
-                      'uid': snapshot.data?.docs[index]['uid'] ?? '',
-                      'profilePic':
-                          snapshot.data?.docs[index]['profilePic'] ?? '',
-                      'isGroupChat':
-                          snapshot.data?.docs[index]['isGroupChat'] ?? '',
-                    },
-                  ),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => MobileChatScreen(
+                          name: snapshot.data!.docs[index]['name'],
+                          uid: snapshot.data!.docs[index]['uid'],
+                          isGroupChat: false,
+                          profilePic: snapshot.data!.docs[index]['profilePic'],
+                        ),
+                      ),
+                    );
+                  },
                   title: Text(snapshot.data!.docs[index]['name']),
                   subtitle: Text(snapshot.data!.docs[index]['email']),
                   leading: CircleAvatar(

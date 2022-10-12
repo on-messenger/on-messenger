@@ -1,4 +1,4 @@
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:on_messenger/common/utils/colors.dart';
@@ -11,12 +11,12 @@ import 'package:on_messenger/models/user_model.dart';
 import 'package:on_messenger/features/chat/widgets/chat_list.dart';
 
 class MobileChatScreen extends ConsumerWidget {
-  static const String routeName = '/mobile-chat-screen';
+  static const routeName = '/mobile-chat-screen';
   final String name;
   final String uid;
   final bool isGroupChat;
   final String profilePic;
-  MobileChatScreen({
+  const MobileChatScreen({
     Key? key,
     required this.name,
     required this.uid,
@@ -24,16 +24,15 @@ class MobileChatScreen extends ConsumerWidget {
     required this.profilePic,
   }) : super(key: key);
 
-  void makeCall(WidgetRef ref, BuildContext context) {
-    ref.read(callControllerProvider).makeCall(
-          context,
-          name,
-          uid,
-          profilePic,
-          isGroupChat,
-        );
-  }
-  final User? user = FirebaseAuth.instance.currentUser;
+  // void makeCall(WidgetRef ref, BuildContext context) {
+  //   ref.read(callControllerProvider).makeCall(
+  //         context,
+  //         name,
+  //         uid,
+  //         profilePic,
+  //         isGroupChat,
+  //       );
+  // }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -53,7 +52,7 @@ class MobileChatScreen extends ConsumerWidget {
                       children: [
                         Text(name),
                         Text(
-                          snapshot.data!.isOnline ? 'online' : 'offline',
+                          snapshot.data!.isOnline ? 'Online' : 'Offline',
                           style: const TextStyle(
                             fontSize: 13,
                             fontWeight: FontWeight.normal,
@@ -64,10 +63,10 @@ class MobileChatScreen extends ConsumerWidget {
                   }),
           centerTitle: false,
           actions: [
-            IconButton(
-              onPressed: () => makeCall(ref, context),
-              icon: const Icon(Icons.video_call),
-            ),
+            // IconButton(
+            //   onPressed: () => m**a**keCall(ref, context),
+            //   icon: const Icon(Icons.video_call),
+            // ),
             IconButton(
               onPressed: () {},
               icon: const Icon(Icons.call),
