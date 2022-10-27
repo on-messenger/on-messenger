@@ -42,6 +42,10 @@ class MyApp extends ConsumerWidget {
             data: (user) {
               if (user == null) {
                 return const LandingScreen();
+<<<<<<< HEAD
+=======
+                //return const MobileLayoutScreen();
+>>>>>>> 3e477c3 (Modificando Cores)
               }
               return const MobileLayoutScreen();
             },

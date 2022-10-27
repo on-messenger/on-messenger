@@ -242,6 +242,10 @@ class _BottomChatFieldState extends ConsumerState<BottomChatField> {
                     ),
                   ),
                   hintText: 'Type a message!',
+<<<<<<< HEAD
+=======
+                  hintStyle: const TextStyle(color: blackColor),
+>>>>>>> 3e477c3 (Modificando Cores)
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(20.0),
                     borderSide: const BorderSide(
@@ -260,7 +264,11 @@ class _BottomChatFieldState extends ConsumerState<BottomChatField> {
                 left: 2,
               ),
               child: CircleAvatar(
+<<<<<<< HEAD
                 backgroundColor: const Color(0xFF128C7E),
+=======
+                backgroundColor: Color.fromRGBO(10, 78, 146, 1),
+>>>>>>> 3e477c3 (Modificando Cores)
                 radius: 25,
                 child: GestureDetector(
                   onTap: sendTextMessage,
