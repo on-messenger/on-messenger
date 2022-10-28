@@ -71,6 +71,6 @@ class DefaultFirebaseOptions {
     projectId: 'tcc-on',
     storageBucket: 'tcc-on.appspot.com',
     iosClientId: '1071981934772-0mu34qmq657u11ksu9l3sl2d4ohmopiv.apps.googleusercontent.com',
-    iosBundleId: 'com.example.whatsappUi',
+    iosBundleId: 'com.enterprise.on_messenger',
   );
 }
