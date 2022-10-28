@@ -45,7 +45,7 @@ class LandingScreen extends StatelessWidget {
               padding: EdgeInsets.all(15.0),
               child: Text(
                 'Read our Privacy Policy. Tap "Agree and continue" to accept the Terms of Service.',
-                style: TextStyle(color: greyColor),
+                style: TextStyle(color: Colors.grey),
                 textAlign: TextAlign.center,
               ),
             ),

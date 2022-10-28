@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -10,6 +11,11 @@ import 'package:on_messenger/firebase_options.dart';
 import 'package:on_messenger/router.dart';
 import 'package:on_messenger/mobile_layout_screen.dart';
 
+void _setOnlineStatus(user){
+  FirebaseFirestore firestore = FirebaseFirestore.instance;
+  firestore.collection('users').doc(user.uid).update({'isOnline': true});
+}
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
@@ -18,7 +24,8 @@ void main() async {
 
   runApp(
     const ProviderScope(
-      child: MyApp(),
+      child: MyApp(
+      ),
     ),
   );
 }
@@ -42,11 +49,8 @@ class MyApp extends ConsumerWidget {
             data: (user) {
               if (user == null) {
                 return const LandingScreen();
-<<<<<<< HEAD
-=======
-                //return const MobileLayoutScreen();
->>>>>>> 3e477c3 (Modificando Cores)
               }
+              _setOnlineStatus(user);
               return const MobileLayoutScreen();
             },
             error: (err, trace) {

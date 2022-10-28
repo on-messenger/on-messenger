@@ -74,6 +74,7 @@ class _BottomChatFieldState extends ConsumerState<BottomChatField> {
           );
       setState(() {
         _messageController.text = '';
+        isShowSendButton = false;
       });
     } else {
       var tempDir = await getTemporaryDirectory();
@@ -179,6 +180,9 @@ class _BottomChatFieldState extends ConsumerState<BottomChatField> {
           children: [
             Expanded(
               child: TextFormField(
+                style: const TextStyle(
+                  color: Colors.grey,
+                ),
                 focusNode: focusNode,
                 controller: _messageController,
                 onChanged: (val) {
@@ -242,10 +246,7 @@ class _BottomChatFieldState extends ConsumerState<BottomChatField> {
                     ),
                   ),
                   hintText: 'Type a message!',
-<<<<<<< HEAD
-=======
-                  hintStyle: const TextStyle(color: blackColor),
->>>>>>> 3e477c3 (Modificando Cores)
+                  hintStyle: const TextStyle(color: greyColor),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(20.0),
                     borderSide: const BorderSide(
@@ -264,11 +265,7 @@ class _BottomChatFieldState extends ConsumerState<BottomChatField> {
                 left: 2,
               ),
               child: CircleAvatar(
-<<<<<<< HEAD
-                backgroundColor: const Color(0xFF128C7E),
-=======
-                backgroundColor: Color.fromRGBO(10, 78, 146, 1),
->>>>>>> 3e477c3 (Modificando Cores)
+                backgroundColor: backgroundColor,
                 radius: 25,
                 child: GestureDetector(
                   onTap: sendTextMessage,
@@ -278,7 +275,7 @@ class _BottomChatFieldState extends ConsumerState<BottomChatField> {
                         : isRecording
                             ? Icons.close
                             : Icons.mic,
-                    color: Colors.white,
+                    color: Colors.grey,
                   ),
                 ),
               ),

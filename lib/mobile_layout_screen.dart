@@ -13,6 +13,7 @@ import 'package:on_messenger/features/chat/widgets/contacts_list.dart';
 import 'package:on_messenger/features/status/screens/confirm_status_screen.dart';
 import 'package:on_messenger/features/status/screens/status_contacts_screen.dart';
 import 'package:on_messenger/features/auth/repository/logout_repository.dart';
+import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 
 class MobileLayoutScreen extends ConsumerStatefulWidget {
   const MobileLayoutScreen({Key? key}) : super(key: key);
@@ -29,6 +30,7 @@ class _MobileLayoutScreenState extends ConsumerState<MobileLayoutScreen>
 
   @override
   void initState() {
+    ref.read(authControllerProvider).setUserState(true);
     super.initState();
     tabBarController = TabController(length: 3, vsync: this);
     WidgetsBinding.instance.addObserver(this);
@@ -36,8 +38,14 @@ class _MobileLayoutScreenState extends ConsumerState<MobileLayoutScreen>
 
   @override
   void dispose() {
+    ref.read(authControllerProvider).setUserState(false);
     super.dispose();
     WidgetsBinding.instance.removeObserver(this);
+  }
+
+  void _setState(context){
+    logoutRepository.logout(context);
+    ref.read(authControllerProvider).setUserState(false);
   }
 
   @override
@@ -48,11 +56,28 @@ class _MobileLayoutScreenState extends ConsumerState<MobileLayoutScreen>
         ref.read(authControllerProvider).setUserState(true);
         break;
       case AppLifecycleState.inactive:
+        ref.read(authControllerProvider).setUserState(false);
+        break;
       case AppLifecycleState.detached:
+        ref.read(authControllerProvider).setUserState(false);
+        break;
       case AppLifecycleState.paused:
         ref.read(authControllerProvider).setUserState(false);
         break;
     }
+  }
+
+  int _selectedIndex = 0;
+  static const List<Widget> _widgetOptions = <Widget>[
+    ContactsList(),
+    StatusContactsScreen(),
+    SearchcCt(),
+  ];
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
   }
 
   @override
@@ -60,8 +85,32 @@ class _MobileLayoutScreenState extends ConsumerState<MobileLayoutScreen>
     return DefaultTabController(
       length: 3,
       child: Scaffold(
+        body: Container(
+          child: _widgetOptions.elementAt(_selectedIndex),
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () async {
+            if (tabBarController.index == 0) {
+              Navigator.pushNamed(context, SelectContactsScreen.routeName);
+            } else {
+              File? pickedImage = await pickImageFromGallery(context);
+              if (pickedImage != null) {
+                Navigator.pushNamed(
+                  context,
+                  ConfirmStatusScreen.routeName,
+                  arguments: pickedImage,
+                );
+              }
+            }
+          },
+          backgroundColor: tabColor,
+          child: const Icon(
+            Icons.comment,
+            color: Colors.white,
+          ),
+        ),
         appBar: AppBar(
-          elevation: 0,
+          elevation: 5,
           backgroundColor: appBarColor,
           centerTitle: false,
           title: const Text(
@@ -75,6 +124,7 @@ class _MobileLayoutScreenState extends ConsumerState<MobileLayoutScreen>
           actions: [
             IconButton(
               icon: const Icon(Icons.search),
+              color: Colors.grey,
               onPressed: () {
                 showSearch(
                   context: context,
@@ -102,63 +152,34 @@ class _MobileLayoutScreenState extends ConsumerState<MobileLayoutScreen>
                     'Logout',
                   ),
                   onTap: () => Future(
-                    () => logoutRepository.logout(context),
+                    () => _setState(context),
                   ),
                 )
               ],
             ),
           ],
-          bottom: TabBar(
-            controller: tabBarController,
-            indicatorColor: tabColor,
-            indicatorWeight: 4,
-            labelColor: tabColor,
-            unselectedLabelColor: Colors.grey,
-            labelStyle: const TextStyle(
-              fontWeight: FontWeight.bold,
-            ),
-            tabs: const [
-              Tab(
-                text: 'CHATS',
-              ),
-              Tab(
-                text: 'STATUS',
-              ),
-              Tab(
-                text: 'CONTACTS',
-              ),
-            ],
-          ),
         ),
-        body: TabBarView(
-          controller: tabBarController,
-          children: const [
-            ContactsList(),
-            StatusContactsScreen(),
-            SearchcCt(),
+        bottomNavigationBar: CurvedNavigationBar(
+          index: 0,
+          height: 50.0,
+          items: const <Widget>[
+            Icon(Icons.chat, size: 30),
+            Icon(Icons.camera_alt, size: 30),
+            Icon(Icons.contacts, size: 30),
           ],
-        ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () async {
-            if (tabBarController.index == 0) {
-              Navigator.pushNamed(context, SelectContactsScreen.routeName);
-            } else {
-              File? pickedImage = await pickImageFromGallery(context);
-              if (pickedImage != null) {
-                Navigator.pushNamed(
-                  context,
-                  ConfirmStatusScreen.routeName,
-                  arguments: pickedImage,
-                );
-              }
-            }
+          color: appBarColor,
+          buttonBackgroundColor: senderMessageColor,
+          backgroundColor: backgroundColor,
+          animationCurve: Curves.easeInOut,
+          animationDuration: const Duration(milliseconds: 600),
+          onTap: (index) {
+            _onItemTapped(index);
+            setState(() {
+              _selectedIndex = index;
+            });
           },
-          backgroundColor: tabColor,
-          child: const Icon(
-            Icons.comment,
-            color: Colors.white,
-          ),
         ),
+        backgroundColor: backgroundColor,
       ),
     );
   }
