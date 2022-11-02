@@ -1,6 +1,6 @@
-# On Clone
+# ON MESSENGER
 
-Full Stack On Clone with Flutter, Firebase & Riverpod 2.0!
+Full Stack On Messenger with Flutter, Firebase & Riverpod 2.0!
 
 ## Features
 - Email login and register with email
