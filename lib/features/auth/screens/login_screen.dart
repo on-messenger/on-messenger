@@ -33,7 +33,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
           .read(authControllerProvider)
           .signInWithEmail(context, email, password);
     } else {
-      showSnackBar(context: context, content: 'Fill out all the fields');
+      showSnackBar(context: context, content: 'Preencha todos os campos');
     }
   }
 
@@ -43,7 +43,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Enter your email and password.'),
+        title: const Text('Coloque seu email e senha.'),
         elevation: 0,
         backgroundColor: backgroundColor,
       ),
@@ -54,7 +54,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               const Text(
-                  'On will need to verify your email and password.'),
+                  'On precisará verificar seu e-mail e senha.'),
               const SizedBox(height: 5),
               Column(
                 children: [
@@ -73,7 +73,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                     child: TextField(
                       controller: passwordController,
                       decoration: const InputDecoration(
-                        hintText: 'Password',
+                        hintText: 'Senha',
                       ),
                     ),
                   ),
@@ -84,7 +84,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                 width: 90,
                 child: CustomButton(
                   onPressed: sendEmail,
-                  text: 'NEXT',
+                  text: 'Próximo',
                 ),
               ),
             ],

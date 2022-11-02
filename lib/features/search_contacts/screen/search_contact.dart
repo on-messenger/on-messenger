@@ -66,7 +66,7 @@ class _SearchcCtState extends State<SearchcCt> {
         title: TextField(
           controller: searchController,
           decoration: const InputDecoration(
-            hintText: 'Search',
+            hintText: 'Procurar',
             border: InputBorder.none,
           ),
         ),

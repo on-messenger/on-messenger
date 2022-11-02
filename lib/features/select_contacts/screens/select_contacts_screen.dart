@@ -20,7 +20,7 @@ class SelectContactsScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Select contact'),
+        title: const Text('Selecionar contato'),
         actions: [
           IconButton(
             onPressed: () {},
