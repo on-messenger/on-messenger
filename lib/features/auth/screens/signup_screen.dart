@@ -33,7 +33,7 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
           .read(authControllerProvider)
           .signInWithEmail(context, email, password);
     } else {
-      showSnackBar(context: context, content: 'Fill out all the fields');
+      showSnackBar(context: context, content: 'Preencha todos os campos');
     }
   }
 
@@ -45,7 +45,7 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
           .read(authControllerProvider)
           .signUpWithEmail(context, email, password);
     } else {
-      showSnackBar(context: context, content: 'Fill out all the fields');
+      showSnackBar(context: context, content: 'Preencha todos os campos');
     }
   }
 
@@ -55,7 +55,7 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Enter your password and email'),
+        title: const Text('Digite sua senha e e-mail'),
         elevation: 0,
         backgroundColor: backgroundColor,
       ),
@@ -84,7 +84,7 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                     child: TextField(
                       controller: passwordController,
                       decoration: const InputDecoration(
-                        hintText: 'Password',
+                        hintText: 'Senha',
                       ),
                     ),
                   ),
@@ -95,7 +95,7 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                 width: 90,
                 child: CustomButton(
                   onPressed: createAccount,
-                  text: 'NEXT',
+                  text: 'Próximo',
                 ),
               ),
             ],

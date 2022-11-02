@@ -47,7 +47,7 @@ class _CreateGroupScreenState extends ConsumerState<CreateGroupScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Create Group'),
+        title: const Text('Criar Grupo'),
       ),
       body: Center(
         child: Column(
@@ -85,7 +85,7 @@ class _CreateGroupScreenState extends ConsumerState<CreateGroupScreen> {
               child: TextField(
                 controller: groupNameController,
                 decoration: const InputDecoration(
-                  hintText: 'Enter Group Name',
+                  hintText: 'Digite o nome do grupo',
                 ),
               ),
             ),
@@ -93,7 +93,7 @@ class _CreateGroupScreenState extends ConsumerState<CreateGroupScreen> {
               alignment: Alignment.topLeft,
               padding: const EdgeInsets.all(8),
               child: const Text(
-                'Select Contacts',
+                'Selecionar Contatos',
                 style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.w600,

@@ -140,7 +140,7 @@ class _MobileLayoutScreenState extends ConsumerState<MobileLayoutScreen>
               itemBuilder: (context) => [
                 PopupMenuItem(
                   child: const Text(
-                    'Create Group',
+                    'Criar Grupo',
                   ),
                   onTap: () => Future(
                     () => Navigator.pushNamed(
@@ -149,7 +149,7 @@ class _MobileLayoutScreenState extends ConsumerState<MobileLayoutScreen>
                 ),
                 PopupMenuItem(
                   child: const Text(
-                    'Logout',
+                    'Sair',
                   ),
                   onTap: () => Future(
                     () => _setState(context),

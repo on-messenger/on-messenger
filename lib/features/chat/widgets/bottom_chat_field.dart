@@ -48,7 +48,7 @@ class _BottomChatFieldState extends ConsumerState<BottomChatField> {
   void openAudio() async {
     final status = await Permission.microphone.request();
     if (status != PermissionStatus.granted) {
-      throw RecordingPermissionException('Mic permission not allowed!');
+      throw RecordingPermissionException('Permissão de microfone não concedida!');
     }
     await _soundRecorder!.openRecorder();
     isRecorderInit = true;
@@ -59,7 +59,7 @@ class _BottomChatFieldState extends ConsumerState<BottomChatField> {
     UserModel? senderUser = UserModel(
       name: "Ajuste o nome",
       uid: user?.uid as String,
-      profilePic: "ajusta a foto",
+      profilePic: "Ajusta a foto",
       isOnline: true,
       email: user?.email as String,
       groupId: [],
@@ -245,7 +245,7 @@ class _BottomChatFieldState extends ConsumerState<BottomChatField> {
                       ],
                     ),
                   ),
-                  hintText: 'Type a message!',
+                  hintText: 'Digite uma mensagem!',
                   hintStyle: const TextStyle(color: greyColor),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(20.0),
