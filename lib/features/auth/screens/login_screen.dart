@@ -6,6 +6,8 @@ import 'package:on_messenger/common/utils/utils.dart';
 import 'package:on_messenger/common/widgets/custom_button.dart';
 import 'package:on_messenger/features/auth/controller/auth_controller.dart';
 
+import 'Forgot_Password.dart';
+
 class LoginScreen extends ConsumerStatefulWidget {
   static const routeName = '/login-screen';
   const LoginScreen({Key? key}) : super(key: key);
@@ -51,41 +53,111 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
         child: Padding(
           padding: const EdgeInsets.all(18.0),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+           // crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               const Text(
                   'On precisará verificar seu e-mail e senha.'),
               const SizedBox(height: 5),
               Column(
                 children: [
+                   Image.asset(
+              'assets/bg.png',
+              height: 200,
+              width: 200,
+            ),
                   const SizedBox(width: 10),
-                  SizedBox(
-                    width: size.width * 0.7,
-                    child: TextField(
-                      controller: emailController,
-                      decoration: const InputDecoration(
-                        hintText: 'Email',
+                  //email
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.grey,
+                        border: Border.all(color: Color.fromARGB(255, 237, 224, 224)),
+                        borderRadius: BorderRadius.circular(12),
                       ),
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 20.0),
+                        child: TextField(
+                          controller: emailController,
+                          decoration: InputDecoration(
+                            border: InputBorder.none,
+                            hintText: 'Email',
+                          ),
+                        ),
+                        ),
+                     ),
                     ),
-                  ),
-                  SizedBox(
-                    width: size.width * 0.7,
-                    child: TextField(
-                      controller: passwordController,
-                      decoration: const InputDecoration(
-                        hintText: 'Senha',
+                    SizedBox(height: 10),
+                  
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.grey,
+                        border: Border.all(color: Color.fromARGB(255, 237, 224, 224)),
+                        borderRadius: BorderRadius.circular(12),
                       ),
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 20.0),
+                        child: TextField(
+                          controller: passwordController,
+                          decoration: InputDecoration(
+                            border: InputBorder.none,
+                            hintText: 'Senha',
+                          ),
+                        ),
+                        ),
+                     ),
                     ),
-                  ),
-                ],
-              ),
-              SizedBox(height: size.height * 0.3),
-              SizedBox(
-                width: 90,
-                child: CustomButton(
+                 SizedBox(height: 10),
+
+                 Padding(
+                    padding:const EdgeInsets.symmetric(horizontal: 25.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(context,
+                           MaterialPageRoute(builder: (context) {
+                            return ForgotPasswordPage();
+                           },
+                           ),
+                           );
+                        },
+                          child: Text(
+                            'Esqueceu a senha?',
+                            style: TextStyle(
+                              color: Colors.blueAccent
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    ),
+                     SizedBox(height: 10),
+
+                //button
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.blueAccent,
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Center(
+                      child: CustomButton(
                   onPressed: sendEmail,
                   text: 'Próximo',
                 ),
+                    ),
+                  ),
+                  ),
+                  SizedBox(height: 10),
+
+                  
+                ],
               ),
             ],
           ),

@@ -38,7 +38,6 @@ class LandingScreen extends StatelessWidget {
               'assets/bg.png',
               height: 200,
               width: 200,
-              color: tabColor,
             ),
             SizedBox(height: size.height / 100),
             const Padding(

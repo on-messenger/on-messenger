@@ -63,41 +63,80 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
         child: Padding(
           padding: const EdgeInsets.all(18.0),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
+               Image.asset(
+              'assets/bg.png',
+              height: 200,
+              width: 200,
+               ),
               const Text('Crie sua conta'),
               const SizedBox(height: 5),
               Column(
                 children: [
                   const SizedBox(width: 10),
-                  SizedBox(
-                    width: size.width * 0.7,
-                    child: TextField(
-                      controller: emailController,
-                      decoration: const InputDecoration(
-                        hintText: 'Email',
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.grey,
+                        border: Border.all(color: Color.fromARGB(255, 237, 224, 224)),
+                        borderRadius: BorderRadius.circular(12),
                       ),
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 20.0),
+                        child: TextField(
+                          controller: emailController,
+                          decoration: InputDecoration(
+                            border: InputBorder.none,
+                            hintText: 'Email',
+                          ),
+                        ),
+                        ),
+                     ),
+                    ),
+                    SizedBox(height: 10),
+                    
+                 Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.grey,
+                        border: Border.all(color: Color.fromARGB(255, 237, 224, 224)),
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 20.0),
+                        child: TextField(
+                          controller: passwordController,
+                          decoration: InputDecoration(
+                            border: InputBorder.none,
+                            hintText: 'Senha',
+                          ),
+                        ),
+                        ),
+                     ),
+                    ),
+                 SizedBox(height: 10),
+
+                 Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.blueAccent,
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Center(
+                      child: CustomButton(
+                  onPressed: sendEmail,
+                  text: 'Próximo',
+                ),
                     ),
                   ),
-                  SizedBox(
-                    width: size.width * 0.7,
-                    child: TextField(
-                      controller: passwordController,
-                      decoration: const InputDecoration(
-                        hintText: 'Senha',
-                      ),
-                    ),
                   ),
                 ],
               ),
-              SizedBox(height: size.height * 0.6),
-              SizedBox(
-                width: 90,
-                child: CustomButton(
-                  onPressed: createAccount,
-                  text: 'Próximo',
-                ),
-              ),
+              
             ],
           ),
         ),
