@@ -56,6 +56,22 @@ dependencies:
   agora_uikit: ^1.0.2
   firebase_app_check: ^0.1.1+2
   curved_navigation_bar: ^1.0.3
+  flutter_native_splash: ^2.2.0+1 
+  flutter_launcher_icons: ^0.10.0
+
+flutter_native_splash:
+  color: "#000428"
+  image: "assets/splash.png"
+  android: true
+  ios: true
+
+flutter_icons:
+  image_path: "assets/icon.png"
+  ios: true
+  remove_alpha_ios: true
+  android: "launcher_icon"
+  adaptive_icon_background: "#004E92"
+  adaptive_icon_foreground: "assets/icon-android.png"
 
 dev_dependencies:
   change_app_package_name: ^1.1.0
@@ -83,6 +99,9 @@ flutter:
   assets:
     - assets/backgroundImage.png
     - assets/bg.png
+    - assets/splash.png
+    - assets/icon.png
+    - assets/icon-android.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
