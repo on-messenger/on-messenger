@@ -36,8 +36,8 @@ class MobileChatScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return CallPickupScreen(
-      scaffold: Scaffold(
+    return SafeArea(
+      child: Scaffold(
         appBar: AppBar(
           backgroundColor: appBarColor,
           title: isGroupChat
@@ -48,34 +48,45 @@ class MobileChatScreen extends ConsumerWidget {
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       return const Loader();
                     }
-                    return Column(
+                    return Row(
                       children: [
-                        Text(name),
-                        Text(
-                          snapshot.data!.isOnline ? 'Online' : 'Offline',
-                          style: const TextStyle(
-                            fontSize: 13,
-                            fontWeight: FontWeight.normal,
+                        Padding(
+                          padding: const EdgeInsets.only(left: 5, right: 15.0),
+                          child: CircleAvatar(
+                            radius: 25,
+                            backgroundImage: NetworkImage(profilePic),
                           ),
+                        ),
+                        Column(
+                          children: [
+                            Text(name),
+                            Text(
+                              snapshot.data!.isOnline ? 'Online' : 'Offline',
+                              style: const TextStyle(
+                                fontSize: 13,
+                                fontWeight: FontWeight.normal,
+                              ),
+                            ),
+                          ],
                         ),
                       ],
                     );
                   }),
           centerTitle: false,
-          actions: [
-            // IconButton(
-            //   onPressed: () => m**a**keCall(ref, context),
-            //   icon: const Icon(Icons.video_call),
-            // ),
-            IconButton(
-              onPressed: () {},
-              icon: const Icon(Icons.call),
-            ),
-            IconButton(
-              onPressed: () {},
-              icon: const Icon(Icons.more_vert),
-            ),
-          ],
+          // actions: [
+          //   IconButton(
+          //     onPressed: () => m**a**keCall(ref, context),
+          //     icon: const Icon(Icons.video_call),
+          //   ),
+          //   IconButton(
+          //     onPressed: () {},
+          //     icon: const Icon(Icons.call),
+          //   ),
+          //   IconButton(
+          //     onPressed: () {},
+          //     icon: const Icon(Icons.more_vert),
+          //   ),
+          // ],
         ),
         body: Column(
           children: [
