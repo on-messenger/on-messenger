@@ -31,7 +31,7 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
     if (email.isNotEmpty && password.isNotEmpty) {
       ref
           .read(authControllerProvider)
-          .signInWithEmail(context, email, password);
+          .signUpWithEmail(context, email, password);
     } else {
       showSnackBar(context: context, content: 'Preencha todos os campos');
     }
@@ -65,11 +65,11 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-               Image.asset(
-              'assets/bg.png',
-              height: 200,
-              width: 200,
-               ),
+              Image.asset(
+                'assets/bg.png',
+                height: 200,
+                width: 200,
+              ),
               const Text('Crie sua conta'),
               const SizedBox(height: 5),
               Column(
@@ -80,7 +80,8 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                     child: Container(
                       decoration: BoxDecoration(
                         color: Colors.grey,
-                        border: Border.all(color: Color.fromARGB(255, 237, 224, 224)),
+                        border: Border.all(
+                            color: Color.fromARGB(255, 237, 224, 224)),
                         borderRadius: BorderRadius.circular(12),
                       ),
                       child: Padding(
@@ -92,17 +93,17 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                             hintText: 'Email',
                           ),
                         ),
-                        ),
-                     ),
+                      ),
                     ),
-                    SizedBox(height: 10),
-                    
-                 Padding(
+                  ),
+                  SizedBox(height: 10),
+                  Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 25.0),
                     child: Container(
                       decoration: BoxDecoration(
                         color: Colors.grey,
-                        border: Border.all(color: Color.fromARGB(255, 237, 224, 224)),
+                        border: Border.all(
+                            color: Color.fromARGB(255, 237, 224, 224)),
                         borderRadius: BorderRadius.circular(12),
                       ),
                       child: Padding(
@@ -114,29 +115,27 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                             hintText: 'Senha',
                           ),
                         ),
-                        ),
-                     ),
-                    ),
-                 SizedBox(height: 10),
-
-                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Colors.blueAccent,
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: Center(
-                      child: CustomButton(
-                  onPressed: sendEmail,
-                  text: 'Próximo',
-                ),
+                      ),
                     ),
                   ),
+                  SizedBox(height: 10),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.blueAccent,
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: Center(
+                        child: CustomButton(
+                          onPressed: sendEmail,
+                          text: 'Próximo',
+                        ),
+                      ),
+                    ),
                   ),
                 ],
               ),
-              
             ],
           ),
         ),
