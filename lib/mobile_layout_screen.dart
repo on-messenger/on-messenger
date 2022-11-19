@@ -10,10 +10,9 @@ import 'package:on_messenger/features/search_contacts/screen/search_contact.dart
 import 'package:on_messenger/features/search_contacts/screen/search_screen.dart';
 import 'package:on_messenger/features/select_contacts/screens/select_contacts_screen.dart';
 import 'package:on_messenger/features/chat/widgets/contacts_list.dart';
-import 'package:on_messenger/features/status/screens/confirm_status_screen.dart';
-import 'package:on_messenger/features/status/screens/status_contacts_screen.dart';
 import 'package:on_messenger/features/auth/repository/logout_repository.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
+import 'package:on_messenger/features/task/task.dart';
 
 class MobileLayoutScreen extends ConsumerStatefulWidget {
   const MobileLayoutScreen({Key? key}) : super(key: key);
@@ -43,7 +42,7 @@ class _MobileLayoutScreenState extends ConsumerState<MobileLayoutScreen>
     WidgetsBinding.instance.removeObserver(this);
   }
 
-  void _setState(context){
+  void _setState(context) {
     logoutRepository.logout(context);
     ref.read(authControllerProvider).setUserState(false);
   }
@@ -70,7 +69,7 @@ class _MobileLayoutScreenState extends ConsumerState<MobileLayoutScreen>
   int _selectedIndex = 0;
   static const List<Widget> _widgetOptions = <Widget>[
     ContactsList(),
-    StatusContactsScreen(),
+    TaksPage(),
     SearchcCt(),
   ];
 
@@ -95,11 +94,11 @@ class _MobileLayoutScreenState extends ConsumerState<MobileLayoutScreen>
             } else {
               File? pickedImage = await pickImageFromGallery(context);
               if (pickedImage != null) {
-                Navigator.pushNamed(
-                  context,
-                  ConfirmStatusScreen.routeName,
-                  arguments: pickedImage,
-                );
+                // Navigator.pushNamed(
+                //   context,
+                //   ConfirmStatusScreen.routeName,
+                //   arguments: pickedImage,
+                // );
               }
             }
           },
@@ -164,7 +163,7 @@ class _MobileLayoutScreenState extends ConsumerState<MobileLayoutScreen>
           height: 50.0,
           items: const <Widget>[
             Icon(Icons.chat, size: 30),
-            Icon(Icons.camera_alt, size: 30),
+            Icon(Icons.assignment_turned_in_rounded, size: 30),
             Icon(Icons.contacts, size: 30),
           ],
           color: appBarColor,

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:on_messenger/common/utils/colors.dart';
 import 'package:on_messenger/common/widgets/custom_button.dart';
 import 'package:on_messenger/features/auth/screens/login_screen.dart';
 import 'package:on_messenger/features/auth/screens/signup_screen.dart';

@@ -41,6 +41,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    // ignore: unused_local_variable
     final size = MediaQuery.of(context).size;
 
     return Scaffold(
@@ -54,18 +55,17 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
           padding: const EdgeInsets.all(18.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
-           // crossAxisAlignment: CrossAxisAlignment.center,
+            // crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const Text(
-                  'On precisará verificar seu e-mail e senha.'),
+              const Text('On precisará verificar seu e-mail e senha.'),
               const SizedBox(height: 5),
               Column(
                 children: [
-                   Image.asset(
-              'assets/bg.png',
-              height: 200,
-              width: 200,
-            ),
+                  Image.asset(
+                    'assets/bg.png',
+                    height: 200,
+                    width: 200,
+                  ),
                   const SizedBox(width: 10),
                   //email
                   Padding(
@@ -73,90 +73,90 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                     child: Container(
                       decoration: BoxDecoration(
                         color: Colors.grey,
-                        border: Border.all(color: Color.fromARGB(255, 237, 224, 224)),
+                        border: Border.all(
+                            color: const Color.fromARGB(255, 237, 224, 224)),
                         borderRadius: BorderRadius.circular(12),
                       ),
                       child: Padding(
                         padding: const EdgeInsets.only(left: 20.0),
                         child: TextField(
                           controller: emailController,
-                          decoration: InputDecoration(
+                          decoration: const InputDecoration(
                             border: InputBorder.none,
                             hintText: 'Email',
                           ),
                         ),
-                        ),
-                     ),
+                      ),
                     ),
-                    SizedBox(height: 10),
-                  
+                  ),
+                  const SizedBox(height: 10),
+
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 25.0),
                     child: Container(
                       decoration: BoxDecoration(
                         color: Colors.grey,
-                        border: Border.all(color: Color.fromARGB(255, 237, 224, 224)),
+                        border: Border.all(
+                            color: const Color.fromARGB(255, 237, 224, 224)),
                         borderRadius: BorderRadius.circular(12),
                       ),
                       child: Padding(
                         padding: const EdgeInsets.only(left: 20.0),
                         child: TextField(
                           controller: passwordController,
-                          decoration: InputDecoration(
+                          decoration: const InputDecoration(
                             border: InputBorder.none,
                             hintText: 'Senha',
                           ),
                         ),
-                        ),
-                     ),
+                      ),
                     ),
-                 SizedBox(height: 10),
+                  ),
+                  const SizedBox(height: 10),
 
-                 Padding(
-                    padding:const EdgeInsets.symmetric(horizontal: 25.0),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 25.0),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.push(context,
-                           MaterialPageRoute(builder: (context) {
-                            return ForgotPasswordPage();
-                           },
-                           ),
-                           );
-                        },
-                          child: Text(
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) {
+                                  return const ForgotPasswordPage();
+                                },
+                              ),
+                            );
+                          },
+                          child: const Text(
                             'Esqueceu a senha?',
-                            style: TextStyle(
-                              color: Colors.blueAccent
-                            ),
+                            style: TextStyle(color: Colors.blueAccent),
                           ),
                         ),
                       ],
                     ),
-                    ),
-                     SizedBox(height: 10),
+                  ),
+                  const SizedBox(height: 10),
 
-                //button
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Colors.blueAccent,
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: Center(
-                      child: CustomButton(
-                  onPressed: sendEmail,
-                  text: 'Próximo',
-                ),
+                  //button
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.blueAccent,
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: Center(
+                        child: CustomButton(
+                          onPressed: sendEmail,
+                          text: 'Próximo',
+                        ),
+                      ),
                     ),
                   ),
-                  ),
-                  SizedBox(height: 10),
-
-                  
+                  const SizedBox(height: 10),
                 ],
               ),
             ],

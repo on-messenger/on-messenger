@@ -57,11 +57,13 @@ class _CallScreenState extends ConsumerState<CallScreen> {
                     disconnectButtonChild: IconButton(
                       onPressed: () async {
                         await client!.engine.leaveChannel();
+                        // ignore: use_build_context_synchronously
                         ref.read(callControllerProvider).endCall(
                               widget.call.callerId,
                               widget.call.receiverId,
                               context,
                             );
+                        // ignore: use_build_context_synchronously
                         Navigator.pop(context);
                       },
                       icon: const Icon(Icons.call_end),

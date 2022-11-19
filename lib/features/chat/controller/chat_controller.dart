@@ -12,7 +12,6 @@ import 'package:on_messenger/models/chat_contact.dart';
 import 'package:on_messenger/models/group.dart';
 import 'package:on_messenger/models/message.dart';
 import 'package:on_messenger/models/user_model.dart';
-import 'package:uuid/uuid.dart';
 
 final chatControllerProvider = Provider((ref) {
   final chatRepository = ref.watch(chatRepositoryProvider);

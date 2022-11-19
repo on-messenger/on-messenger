@@ -1,11 +1,8 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:on_messenger/common/utils/colors.dart';
 import 'package:on_messenger/common/widgets/loader.dart';
 import 'package:on_messenger/features/auth/controller/auth_controller.dart';
-import 'package:on_messenger/features/call/controller/call_controller.dart';
-import 'package:on_messenger/features/call/screens/call_pickup_screen.dart';
 import 'package:on_messenger/features/chat/widgets/bottom_chat_field.dart';
 import 'package:on_messenger/models/user_model.dart';
 import 'package:on_messenger/features/chat/widgets/chat_list.dart';

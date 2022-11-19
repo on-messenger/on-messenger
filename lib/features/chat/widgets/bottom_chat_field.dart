@@ -48,7 +48,8 @@ class _BottomChatFieldState extends ConsumerState<BottomChatField> {
   void openAudio() async {
     final status = await Permission.microphone.request();
     if (status != PermissionStatus.granted) {
-      throw RecordingPermissionException('Permissão de microfone não concedida!');
+      throw RecordingPermissionException(
+          'Permissão de microfone não concedida!');
     }
     await _soundRecorder!.openRecorder();
     isRecorderInit = true;
@@ -127,6 +128,7 @@ class _BottomChatFieldState extends ConsumerState<BottomChatField> {
   void selectGIF() async {
     final gif = await pickGIF(context);
     if (gif != null) {
+      // ignore: use_build_context_synchronously
       ref.read(chatControllerProvider).sendGIFMessage(
             context,
             gif.url,

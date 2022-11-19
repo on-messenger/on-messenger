@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously, duplicate_ignore
+
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -10,8 +12,6 @@ import 'package:on_messenger/common/utils/utils.dart';
 import 'package:on_messenger/features/auth/screens/user_information_screen.dart';
 import 'package:on_messenger/models/user_model.dart';
 import 'package:on_messenger/mobile_layout_screen.dart';
-
-import '../screens/login_screen.dart';
 
 final authRepositoryProvider = Provider(
   (ref) => AuthRepository(
@@ -43,6 +43,7 @@ class AuthRepository {
       BuildContext context, String email, String password) async {
     try {
       await auth.signInWithEmailAndPassword(email: email, password: password);
+      // ignore: use_build_context_synchronously
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
@@ -50,7 +51,9 @@ class AuthRepository {
         ),
       );
     } catch (e) {
-      print(e);
+      if (kDebugMode) {
+        print(e);
+      }
     }
   }
 
@@ -90,7 +93,9 @@ class AuthRepository {
         (route) => false,
       );
     } catch (e) {
-      print(e);
+      if (kDebugMode) {
+        print(e);
+      }
     }
   }
 
@@ -106,7 +111,9 @@ class AuthRepository {
         ),
       );
     } catch (e) {
-      print(e);
+      if (kDebugMode) {
+        print(e);
+      }
     }
   }
 
