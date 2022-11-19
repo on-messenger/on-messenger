@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:on_messenger/common/enums/message_enum.dart';
@@ -12,6 +13,7 @@ import 'package:on_messenger/models/chat_contact.dart';
 import 'package:on_messenger/models/group.dart';
 import 'package:on_messenger/models/message.dart';
 import 'package:on_messenger/models/user_model.dart';
+import 'package:uuid/uuid.dart';
 
 final chatControllerProvider = Provider((ref) {
   final chatRepository = ref.watch(chatRepositoryProvider);
@@ -47,6 +49,77 @@ class ChatController {
     return chatRepository.getGroupChatStream(groupId);
   }
 
+  void _saveMessageToMessageSubcollection({
+    required String recieverUserId,
+    required String senderUserId,
+    required String text,
+    required DateTime timeSent,
+    required String messageId,
+    required MessageEnum messageType,
+    required MessageReply? messageReply,
+    required String senderUsername,
+    required String? recieverUserName,
+    required bool isGroupChat,
+  }) async {
+    final message = Message(
+      senderId: senderUserId,
+      recieverid: recieverUserId,
+      text: text,
+      type: messageType,
+      timeSent: timeSent,
+      messageId: messageId,
+      isSeen: false,
+      repliedMessage: messageReply == null ? '' : messageReply.message,
+      repliedTo: messageReply == null
+          ? ''
+          : messageReply.isMe
+              ? senderUsername
+              : recieverUserName ?? '',
+      repliedMessageType:
+          messageReply == null ? MessageEnum.text : messageReply.messageEnum,
+    );
+    if (isGroupChat) {
+      // groups -> group id -> chat -> message
+      await firestore
+          .collection('groups')
+          .doc(recieverUserId)
+          .collection('chats')
+          .doc(messageId)
+          .set(
+            message.toMap(),
+          );
+    } else {
+      // users -> sender id -> reciever id -> messages -> message id -> store message
+      if (kDebugMode) {
+        print("Chegou nesse aqui");
+      }
+      await firestore
+          .collection('users')
+          .doc(senderUserId)
+          .collection('chats')
+          .doc(recieverUserId)
+          .collection('messages')
+          .doc(messageId)
+          .set(
+            message.toMap(),
+          );
+      // users -> reciever id  -> sender id -> messages -> message id -> store message
+      if (kDebugMode) {
+        print("Agora nesse aqui");
+      }
+      await firestore
+          .collection('users')
+          .doc(recieverUserId)
+          .collection('chats')
+          .doc(senderUserId)
+          .collection('messages')
+          .doc(messageId)
+          .set(
+            message.toMap(),
+          );
+    }
+  }
+
   void sendTextMessage(
     BuildContext context,
     String text,
@@ -55,6 +128,19 @@ class ChatController {
     bool isGroupChat,
   ) {
     final messageReply = ref.read(messageReplyProvider);
+    var timeSent = DateTime.now();
+    var messageId = const Uuid().v1();
+    _saveMessageToMessageSubcollection(
+        recieverUserId: recieverUserId,
+        senderUserId: auth.currentUser!.uid,
+        text: text,
+        timeSent: timeSent,
+        messageId: messageId,
+        messageType: MessageEnum.text,
+        messageReply: messageReply,
+        senderUsername: "senderUsername",
+        recieverUserName: "recieverUserName",
+        isGroupChat: isGroupChat);
     ref.read(userDataAuthProvider).whenData(
           (senderUser) => chatRepository.sendTextMessage(
             context: context,
