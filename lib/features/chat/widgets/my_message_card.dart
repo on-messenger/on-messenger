@@ -50,16 +50,16 @@ class MyMessageCard extends StatelessWidget {
                 Padding(
                   padding: type == MessageEnum.text
                       ? const EdgeInsets.only(
-                          left: 10,
+                          left: 30,
                           right: 30,
-                          top: 5,
-                          bottom: 20,
+                          top: 12,
+                          bottom: 25,
                         )
                       : const EdgeInsets.only(
-                          left: 5,
-                          top: 5,
-                          right: 5,
-                          bottom: 25,
+                          left: 15,
+                          top: 15,
+                          right: 15,
+                          bottom: 35,
                         ),
                   child: Column(
                     children: [
@@ -72,7 +72,7 @@ class MyMessageCard extends StatelessWidget {
                         ),
                         const SizedBox(height: 3),
                         Container(
-                          padding: const EdgeInsets.all(10),
+                          padding: const EdgeInsets.all(15),
                           decoration: BoxDecoration(
                             color: backgroundColor.withOpacity(0.5),
                             borderRadius: const BorderRadius.all(
@@ -113,7 +113,9 @@ class MyMessageCard extends StatelessWidget {
                       Icon(
                         isSeen ? Icons.done_all : Icons.done,
                         size: 20,
-                        color: isSeen ? Colors.blue : Colors.white60,
+                        color: isSeen
+                            ? const Color.fromARGB(255, 0, 255, 13)
+                            : const Color.fromARGB(255, 255, 0, 0),
                       ),
                     ],
                   ),

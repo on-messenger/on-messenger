@@ -3,8 +3,6 @@ import 'package:on_messenger/common/widgets/error.dart';
 import 'package:on_messenger/features/auth/screens/login_screen.dart';
 import 'package:on_messenger/features/auth/screens/signup_screen.dart';
 import 'package:on_messenger/features/auth/screens/user_information_screen.dart';
-import 'package:on_messenger/features/group/screens/create_group_screen.dart';
-import 'package:on_messenger/features/select_contacts/screens/select_contacts_screen.dart';
 import 'package:on_messenger/features/chat/screens/mobile_chat_screen.dart';
 
 import 'features/landing/screens/landing_screen.dart';
@@ -25,10 +23,10 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return MaterialPageRoute(
         builder: (context) => const UserInformationScreen(),
       );
-    case SelectContactsScreen.routeName:
-      return MaterialPageRoute(
-        builder: (context) => const SelectContactsScreen(),
-      );
+    // case SelectContactsScreen.routeName:
+    //   return MaterialPageRoute(
+    //     builder: (context) => const SelectContactsScreen(),
+    //   );
     case MobileChatScreen.routeName:
       final arguments = settings.arguments as Map<String, dynamic>;
       final name = arguments['name'];
@@ -57,10 +55,10 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     //       status: status,
     //     ),
     //   );
-    case CreateGroupScreen.routeName:
-      return MaterialPageRoute(
-        builder: (context) => const CreateGroupScreen(),
-      );
+    // case CreateGroupScreen.routeName:
+    //   return MaterialPageRoute(
+    //     builder: (context) => const CreateGroupScreen(),
+    //   );
     default:
       return MaterialPageRoute(
         builder: (context) => const Scaffold(

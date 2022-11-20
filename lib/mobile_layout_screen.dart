@@ -1,14 +1,9 @@
-import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:on_messenger/common/utils/colors.dart';
-import 'package:on_messenger/common/utils/utils.dart';
 import 'package:on_messenger/features/auth/controller/auth_controller.dart';
-import 'package:on_messenger/features/group/screens/create_group_screen.dart';
 import 'package:on_messenger/features/search_contacts/screen/search_contact.dart';
-import 'package:on_messenger/features/search_contacts/screen/search_screen.dart';
-import 'package:on_messenger/features/select_contacts/screens/select_contacts_screen.dart';
 import 'package:on_messenger/features/chat/widgets/contacts_list.dart';
 import 'package:on_messenger/features/auth/repository/logout_repository.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
@@ -87,27 +82,27 @@ class _MobileLayoutScreenState extends ConsumerState<MobileLayoutScreen>
         body: Container(
           child: _widgetOptions.elementAt(_selectedIndex),
         ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () async {
-            if (tabBarController.index == 0) {
-              Navigator.pushNamed(context, SelectContactsScreen.routeName);
-            } else {
-              File? pickedImage = await pickImageFromGallery(context);
-              if (pickedImage != null) {
-                // Navigator.pushNamed(
-                //   context,
-                //   ConfirmStatusScreen.routeName,
-                //   arguments: pickedImage,
-                // );
-              }
-            }
-          },
-          backgroundColor: tabColor,
-          child: const Icon(
-            Icons.comment,
-            color: Colors.white,
-          ),
-        ),
+        // floatingActionButton: FloatingActionButton(
+        //   onPressed: () async {
+        //     if (tabBarController.index == 0) {
+        //       Navigator.pushNamed(context, SelectContactsScreen.routeName);
+        //     } else {
+        //       File? pickedImage = await pickImageFromGallery(context);
+        //       if (pickedImage != null) {
+        //         Navigator.pushNamed(
+        //           context,
+        //           ConfirmStatusScreen.routeName,
+        //           arguments: pickedImage,
+        //         );
+        //       }
+        //     }
+        //   },
+        //   backgroundColor: tabColor,
+        //   child: const Icon(
+        //     Icons.comment,
+        //     color: Colors.white,
+        //   ),
+        // ),
         appBar: AppBar(
           elevation: 5,
           backgroundColor: appBarColor,
@@ -121,31 +116,21 @@ class _MobileLayoutScreenState extends ConsumerState<MobileLayoutScreen>
             ),
           ),
           actions: [
-            IconButton(
-              icon: const Icon(Icons.search),
-              color: Colors.grey,
-              onPressed: () {
-                showSearch(
-                  context: context,
-                  delegate: CustomSearchDelegate(),
-                );
-              },
-            ),
             PopupMenuButton(
               icon: const Icon(
                 Icons.more_vert,
                 color: Colors.grey,
               ),
               itemBuilder: (context) => [
-                PopupMenuItem(
-                  child: const Text(
-                    'Criar Grupo',
-                  ),
-                  onTap: () => Future(
-                    () => Navigator.pushNamed(
-                        context, CreateGroupScreen.routeName),
-                  ),
-                ),
+                // PopupMenuItem(
+                //   child: const Text(
+                //     'Criar Grupo',
+                //   ),
+                //   onTap: () => Future(
+                //     () => Navigator.pushNamed(
+                //         context, CreateGroupScreen.routeName),
+                //   ),
+                // ),
                 PopupMenuItem(
                   child: const Text(
                     'Sair',
