@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:on_messenger/common/utils/colors.dart';
 import 'package:on_messenger/features/auth/controller/auth_controller.dart';
-import 'package:on_messenger/features/search_contacts/screen/search_contact.dart';
+import 'package:on_messenger/features/search_contacts/screen/page_contact.dart';
 import 'package:on_messenger/features/chat/widgets/contacts_list.dart';
 import 'package:on_messenger/features/auth/repository/logout_repository.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
@@ -65,7 +65,7 @@ class _MobileLayoutScreenState extends ConsumerState<MobileLayoutScreen>
   static const List<Widget> _widgetOptions = <Widget>[
     ContactsList(),
     TaksPage(),
-    SearchcCt(),
+    PageContact(),
   ];
 
   void _onItemTapped(int index) {
@@ -135,9 +135,9 @@ class _MobileLayoutScreenState extends ConsumerState<MobileLayoutScreen>
                   child: const Text(
                     'Sair',
                   ),
-                  onTap: () => Future(
-                    () => _setState(context),
-                  ),
+                  onTap: () {
+                    _setState(context);
+                  },
                 )
               ],
             ),

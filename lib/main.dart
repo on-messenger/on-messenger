@@ -11,7 +11,7 @@ import 'package:on_messenger/firebase_options.dart';
 import 'package:on_messenger/router.dart';
 import 'package:on_messenger/mobile_layout_screen.dart';
 
-void _setOnlineStatus(user){
+void _setOnlineStatus(user) {
   FirebaseFirestore firestore = FirebaseFirestore.instance;
   firestore.collection('users').doc(user.uid).update({'isOnline': true});
 }
@@ -24,8 +24,7 @@ void main() async {
 
   runApp(
     const ProviderScope(
-      child: MyApp(
-      ),
+      child: MyApp(),
     ),
   );
 }
