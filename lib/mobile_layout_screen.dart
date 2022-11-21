@@ -20,6 +20,7 @@ class _MobileLayoutScreenState extends ConsumerState<MobileLayoutScreen>
     with WidgetsBindingObserver, TickerProviderStateMixin {
   late TabController tabBarController;
   final FirebaseAuth auth = FirebaseAuth.instance;
+  int _selectedIndex = 0;
   LogoutRepository logoutRepository = LogoutRepository();
 
   @override
@@ -61,7 +62,6 @@ class _MobileLayoutScreenState extends ConsumerState<MobileLayoutScreen>
     }
   }
 
-  int _selectedIndex = 0;
   static const List<Widget> _widgetOptions = <Widget>[
     ContactsList(),
     TaksPage(),
@@ -82,27 +82,6 @@ class _MobileLayoutScreenState extends ConsumerState<MobileLayoutScreen>
         body: Container(
           child: _widgetOptions.elementAt(_selectedIndex),
         ),
-        // floatingActionButton: FloatingActionButton(
-        //   onPressed: () async {
-        //     if (tabBarController.index == 0) {
-        //       Navigator.pushNamed(context, SelectContactsScreen.routeName);
-        //     } else {
-        //       File? pickedImage = await pickImageFromGallery(context);
-        //       if (pickedImage != null) {
-        //         Navigator.pushNamed(
-        //           context,
-        //           ConfirmStatusScreen.routeName,
-        //           arguments: pickedImage,
-        //         );
-        //       }
-        //     }
-        //   },
-        //   backgroundColor: tabColor,
-        //   child: const Icon(
-        //     Icons.comment,
-        //     color: Colors.white,
-        //   ),
-        // ),
         appBar: AppBar(
           elevation: 5,
           backgroundColor: appBarColor,
@@ -135,9 +114,9 @@ class _MobileLayoutScreenState extends ConsumerState<MobileLayoutScreen>
                   child: const Text(
                     'Sair',
                   ),
-                  onTap: () {
-                    _setState(context);
-                  },
+                  onTap: () => Future(
+                    () => _setState(context),
+                  ),
                 )
               ],
             ),
