@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:on_messenger/common/utils/colors.dart';
 
+
 class PostCreation extends StatefulWidget {
   const PostCreation({Key? key}) : super(key: key);
 
@@ -20,13 +21,13 @@ class _PostCreationState extends State<PostCreation> {
       appBar: AppBar(
         automaticallyImplyLeading: false,
         elevation: 0.2,
-        backgroundColor: Colors.white,
-        leading: const BackButton(color: Colors.black,),
+        backgroundColor: appBarColor,
+        leading: const BackButton(color: textColor),
         centerTitle: false,
         title: const Text(
           "Criar post",
           style: TextStyle(
-                  color: Colors.black
+                  color: textColor
                 ),
         ),
         actions: [
@@ -35,7 +36,7 @@ class _PostCreationState extends State<PostCreation> {
               child: const Text(
                 "Publicar",
                 style:TextStyle(
-                  color: Colors.black
+                  color: textColor
                 ),
               ),
           ),
@@ -61,19 +62,19 @@ class _PostCreationState extends State<PostCreation> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text("Chancilson Smart Lion",
+                      const Text("Adagagilson Pereira",
                       ),
                       const SizedBox(
                         height: 5,
                       ),
                       Row(
-                        children: [
-                          const Icon(
+                        children: const [
+                           Icon(
                             Icons.public,
                             color: greyColor,
                             size: 18,
                           ),
-                          Text("Share with the public",
+                          Text(" Compartilhe com o público",
                           ),
                         ],
                       )
@@ -100,10 +101,10 @@ class _PostCreationState extends State<PostCreation> {
                     controller: _postTextController,
                     maxLines: 5,
                     minLines:1,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       focusedBorder: InputBorder.none,
                       border: InputBorder.none,
-                      hintText: "What are you thinking?",
+                      hintText: "O que você está pensando?",
                     ),
                   ),
                 ),
@@ -121,8 +122,8 @@ class _PostCreationState extends State<PostCreation> {
                       height: 35,
                     ),
                   ),
-                  Text(
-                      "Picture",
+                  const Text(
+                      "Selecione uma imagem",
                   ),
                 ]
               ),
@@ -137,10 +138,8 @@ class _PostCreationState extends State<PostCreation> {
               margin: const EdgeInsets.only(top: 20, left: 10, right: 10),
               width: size.width,
               height: 50,
-              child: ElevatedButton(
+              child:  ElevatedButton(
                 onPressed: (){},
-                child: Text(
-                    "Publish"),
                   style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all(Colors.grey),
                     shape: MaterialStateProperty.all(
@@ -148,7 +147,8 @@ class _PostCreationState extends State<PostCreation> {
                         borderRadius: BorderRadius.circular(10),
                       ),
                     ),
-                  )
+                  ),
+                child: const Text( "Publicar")
               ),
             )
           ],

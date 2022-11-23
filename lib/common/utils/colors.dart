@@ -11,7 +11,7 @@ import 'package:flutter/material.dart';
 // const dividerColor = Color.fromRGBO(37, 45, 50, 1);
 // const chatBarMessage = Color.fromRGBO(30, 36, 40, 1);
 // const mobileChatBoxColor = Color.fromRGBO(31, 44, 52, 1);
-const backgroundColor = Color.fromRGBO(26, 45, 81, 1);
+const backgroundColor = Color.fromRGBO(5, 20, 90, 1);
 const textColor = Color.fromRGBO(160, 160, 160, 1);
 
 const appBarColor = Color.fromRGBO(18, 29, 50, 1);

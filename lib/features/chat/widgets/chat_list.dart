@@ -6,7 +6,6 @@ import 'package:intl/intl.dart';
 import 'package:on_messenger/common/enums/message_enum.dart';
 import 'package:on_messenger/common/providers/message_reply_provider.dart';
 import 'package:on_messenger/common/widgets/loader.dart';
-
 import 'package:on_messenger/features/chat/controller/chat_controller.dart';
 import 'package:on_messenger/features/chat/widgets/my_message_card.dart';
 import 'package:on_messenger/features/chat/widgets/sender_message_card.dart';

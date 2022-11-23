@@ -8,7 +8,6 @@ import 'package:on_messenger/features/chat/widgets/contacts_list.dart';
 import 'package:on_messenger/features/auth/repository/logout_repository.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:on_messenger/features/status/screens/status_screen.dart';
-import 'package:on_messenger/features/task/task.dart';
 
 class MobileLayoutScreen extends ConsumerStatefulWidget {
   const MobileLayoutScreen({Key? key}) : super(key: key);

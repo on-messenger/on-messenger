@@ -23,11 +23,11 @@ class _FeedScreenState extends State<FeedScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey.withOpacity(0.1),
+      
       appBar: AppBar(
         elevation: 0,
         toolbarHeight: 70.0,
-        backgroundColor: Colors.white,
+        backgroundColor: backgroundColor,
         automaticallyImplyLeading: false,
         leadingWidth: 60,
         leading: Padding(
@@ -42,24 +42,24 @@ class _FeedScreenState extends State<FeedScreen> {
             ),
           ),
         ),
-      
         centerTitle: true,
         title: Expanded(
           child: GestureDetector(
             onTap: ()=> QuickHelp.goToNavigationScreen( const PostCreation(), context),
             child: Container(
               width: 300,
-              child: Padding(
-                padding: const EdgeInsets.only(left: 5, top: 15),
-                child: Text(
-                  "Poste alguma coisa...",
-                ),
-              ),
               margin: const EdgeInsets.only(left: 5),
               height: 50,
               decoration: BoxDecoration(
-                border: Border.all(color: greyColor),
-                borderRadius: BorderRadius.circular(10),
+                color: Colors.blueGrey,
+                border: Border.all(),
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: const Padding(
+                padding: EdgeInsets.only(left: 5, top: 15),
+                child: Text(
+                  "Poste alguma coisa...",
+                ),
               ),
             ),
           ),
@@ -204,8 +204,8 @@ class _FeedScreenState extends State<FeedScreen> {
                 Image.asset("assets/svg/ic_post_like.svg",
                   color: greyColor,
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 5),
+                const Padding(
+                  padding: EdgeInsets.only(left: 5),
                   child: Text(
                     '4',
                   ),
@@ -215,8 +215,8 @@ class _FeedScreenState extends State<FeedScreen> {
                 ),
                 Image.asset("assets/svg/ic_post_comment.svg",
                     color: greyColor),
-                Padding(
-                  padding: const EdgeInsets.only(left: 5),
+                const Padding(
+                  padding: EdgeInsets.only(left: 5),
                   child: Text(
                     '14',
                     

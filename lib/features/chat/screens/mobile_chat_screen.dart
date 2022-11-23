@@ -34,6 +34,7 @@ class MobileChatScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return SafeArea(
+      
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: appBarColor,
@@ -85,7 +86,9 @@ class MobileChatScreen extends ConsumerWidget {
           //   ),
           // ],
         ),
+      
         body: Column(
+          
           children: [
             Expanded(
               child: ChatList(

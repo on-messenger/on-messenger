@@ -4,7 +4,6 @@ import 'package:on_messenger/features/auth/screens/login_screen.dart';
 import 'package:on_messenger/features/auth/screens/signup_screen.dart';
 import 'package:on_messenger/features/auth/screens/user_information_screen.dart';
 import 'package:on_messenger/features/chat/screens/mobile_chat_screen.dart';
-import 'package:on_messenger/features/status/screens/status_post.dart';
 
 import 'features/landing/screens/landing_screen.dart';
 
