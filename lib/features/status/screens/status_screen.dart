@@ -11,64 +11,47 @@ class FeedScreen extends StatefulWidget {
 }
 
 class QuickHelp {
-
   static goToNavigationScreen(Widget widget, BuildContext context) {
     Navigator.push(context, MaterialPageRoute(builder: (context) => widget));
   }
-
 }
 
 class _FeedScreenState extends State<FeedScreen> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      
       appBar: AppBar(
         elevation: 0,
         toolbarHeight: 70.0,
-        backgroundColor: backgroundColor,
+        backgroundColor: appBarColor,
         automaticallyImplyLeading: false,
         leadingWidth: 60,
-        leading: Padding(
-          padding: const EdgeInsets.only(left: 10, bottom: 10, top: 10),
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(50.0),
-            child: Image.asset(
-              "user_null.png",
-              height: 60,
-              width: 60,
-              fit: BoxFit.cover,
+        title: const Text("Batata"),
+        centerTitle: false,
+      ),
+      
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder:
+                  QuickHelp.goToNavigationScreen(const PostCreation(), context),
             ),
-          ),
-        ),
-        centerTitle: true,
-        title: Expanded(
-          child: GestureDetector(
-            onTap: ()=> QuickHelp.goToNavigationScreen( const PostCreation(), context),
-            child: Container(
-              width: 300,
-              margin: const EdgeInsets.only(left: 5),
-              height: 50,
-              decoration: BoxDecoration(
-                color: Colors.blueGrey,
-                border: Border.all(),
-                borderRadius: BorderRadius.circular(20),
-              ),
-              child: const Padding(
-                padding: EdgeInsets.only(left: 5, top: 15),
-                child: Text(
-                  "Poste alguma coisa...",
-                ),
-              ),
-            ),
-          ),
+          );
+        },
+        backgroundColor: appBarColor,
+        child: const Icon(
+          Icons.add,
+          color: Colors.white,
         ),
       ),
+
       /* body: ListView(
         children: List.generate(
           Post.users.length,
           (index) => post(
+            
               userName: Post.users[index]["user"]["name"],  //TUDO REFERENTE A .POST ESTA PUXANDO AS INFORMAÇÕES LOCALMENTE (DE ACORDO COM O VIDEO) E DEVE SER SUBSTITUIDO PELAS INFORMAÇÕES CONTIDAS NO BANCO DE DADOS.
               postDate: Post.post[index]["post"]["date"],
               postText: Post.post[index]["post"]["text"],
@@ -201,7 +184,8 @@ class _FeedScreenState extends State<FeedScreen> {
                 const SizedBox(
                   width: 10,
                 ),
-                Image.asset("assets/svg/ic_post_like.svg",
+                Image.asset(
+                  "assets/svg/ic_post_like.svg",
                   color: greyColor,
                 ),
                 const Padding(
@@ -213,13 +197,11 @@ class _FeedScreenState extends State<FeedScreen> {
                 const SizedBox(
                   width: 10,
                 ),
-                Image.asset("assets/svg/ic_post_comment.svg",
-                    color: greyColor),
+                Image.asset("assets/svg/ic_post_comment.svg", color: greyColor),
                 const Padding(
                   padding: EdgeInsets.only(left: 5),
                   child: Text(
                     '14',
-                    
                   ),
                 ),
               ],

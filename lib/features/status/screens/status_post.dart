@@ -51,7 +51,7 @@ class _PostCreationState extends State<PostCreation> {
                   padding: const EdgeInsets.only(left: 10, right: 10, top: 5),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(50.0),
-                    child: Image.asset("icon.png",
+                    child: Image.asset("user_null.png",
                       height: 50,
                       width: 50,
                       fit: BoxFit.cover,
@@ -117,8 +117,7 @@ class _PostCreationState extends State<PostCreation> {
                   Padding(
                     padding: const EdgeInsets.only(right: 10, left: 5),
                     child: Image.asset(
-                      "user_null.png",
-                      color: greyColor,
+                      "icon.png",
                       height: 35,
                     ),
                   ),
