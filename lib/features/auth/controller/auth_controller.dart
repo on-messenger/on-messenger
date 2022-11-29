@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:math';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -43,10 +44,27 @@ class AuthController {
         ),
         (route) => false,
       );
-    } catch (e) {
-      showSnackBar(context: context, content: e.toString());
-    }
+    } on FirebaseAuthException catch (e, s) {print(e.hashCode);
+    _handleFirebaseLoginWithCredentialsException(e, s, context);
+
+  } on Exception catch (e) {
+    showSnackBar(context: context, content: 'Houve um erro inesperado, entre em contato: 4002-8922 ou bomdia@cia.com.');
   }
+  }
+
+  void _handleFirebaseLoginWithCredentialsException(Object e, StackTrace s, context) {
+  if (e.toString().contains('user-disabled')) {
+    showSnackBar(context: context, content: 'O usuário informado está desabilitado.');
+  } else if (e.toString().contains('user-not-found')) {
+    showSnackBar(context: context, content: 'O usuário informado não está cadastrado.');
+  } else if (e.toString().contains('invalid-email')) {
+    showSnackBar(context: context, content: 'O domínio do e-mail informado é inválido.');
+  } else if (e.toString().contains('wrong-password')) {
+    showSnackBar(context: context, content: 'A senha informada está incorreta.');
+  } else {
+    showSnackBar(context: context, content: 'Houve um erro inesperado, entre em contato: 4002-8922 ou bomdia@cia.com.');
+  }
+}
 
   void signUpWithEmail(
       BuildContext context, String email, String password) async {
