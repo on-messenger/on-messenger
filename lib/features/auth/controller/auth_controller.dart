@@ -1,9 +1,12 @@
 import 'dart:io';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:on_messenger/common/utils/utils.dart';
 
 import 'package:on_messenger/features/auth/repository/auth_repository.dart';
+import 'package:on_messenger/mobile_layout_screen.dart';
 import 'package:on_messenger/models/user_model.dart';
 
 final authControllerProvider = Provider((ref) {
@@ -17,6 +20,7 @@ final userDataAuthProvider = FutureProvider((ref) {
 });
 
 class AuthController {
+  FirebaseAuth auth = FirebaseAuth.instance;
   final AuthRepository authRepository;
   final ProviderRef ref;
   AuthController({
@@ -29,9 +33,19 @@ class AuthController {
     return user;
   }
 
-  void signInWithEmail(
-      BuildContext context, String email, String password) async {
-    authRepository.signInWithEmail(context, email, password);
+  void signInWithEmail(BuildContext context, String email, String password) async {
+    try {
+      await auth.signInWithEmailAndPassword(email: email, password: password);
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const MobileLayoutScreen(),
+        ),
+        (route) => false,
+      );
+    } catch (e) {
+      showSnackBar(context: context, content: e.toString());
+    }
   }
 
   void signUpWithEmail(

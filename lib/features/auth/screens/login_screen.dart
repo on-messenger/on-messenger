@@ -1,11 +1,9 @@
-// import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:on_messenger/common/utils/colors.dart';
 import 'package:on_messenger/common/utils/utils.dart';
 import 'package:on_messenger/common/widgets/custom_button.dart';
 import 'package:on_messenger/features/auth/controller/auth_controller.dart';
-
 import 'Forgot_Password.dart';
 
 class LoginScreen extends ConsumerStatefulWidget {
@@ -19,7 +17,7 @@ class LoginScreen extends ConsumerStatefulWidget {
 class _LoginScreenState extends ConsumerState<LoginScreen> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
-  // Country? country;
+  
 
   @override
   void dispose() {
