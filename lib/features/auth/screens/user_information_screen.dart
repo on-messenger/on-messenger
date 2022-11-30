@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:on_messenger/common/repositories/common_firebase_storage_repository.dart';
@@ -23,6 +24,7 @@ class _UserInformationScreenState extends ConsumerState<UserInformationScreen> {
   FirebaseAuth auth = FirebaseAuth.instance;
   FirebaseFirestore firestore = FirebaseFirestore.instance;
   File? image;
+  final ProviderRef _ref = CommonFirebaseStorageRepository(firebaseStorage: FirebaseStorage.instance) as ProviderRef;
 
   @override
   void dispose() {
@@ -45,7 +47,6 @@ class _UserInformationScreenState extends ConsumerState<UserInformationScreen> {
       String uid = auth.currentUser!.uid;
       String photoUrl =
           'https://png.pngitem.com/pimgs/s/649-6490124_katie-notopoulos-katienotopoulos-i-write-about-tech-round.png';
-
       if (profilePic != null) {
         photoUrl = await ref
             .read(commonFirebaseStorageRepositoryProvider)
@@ -83,11 +84,10 @@ class _UserInformationScreenState extends ConsumerState<UserInformationScreen> {
     String name = nameController.text.trim();
 
     if (name.isNotEmpty) {
-      ref.read(authControllerProvider).saveUserDataToFirebase(
-            context,
-            name,
-            image,
-          );
+      saveUserDataToFirebase(name: name,
+       profilePic: image, 
+       ref: _ref, 
+       context: context);
     }
   }
 

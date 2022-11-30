@@ -31,7 +31,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     if (password.isNotEmpty && email.isNotEmpty) {
       ref
           .read(authControllerProvider)
-          .signInWithEmail(context, email, password);
+          .loginWithEmail(context, email, password);
     } else {
       showSnackBar(context: context, content: 'Preencha todos os campos');
     }

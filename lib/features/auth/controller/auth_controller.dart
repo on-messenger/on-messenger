@@ -1,14 +1,14 @@
 import 'dart:io';
-import 'dart:math';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:on_messenger/common/utils/utils.dart';
-
 import 'package:on_messenger/features/auth/repository/auth_repository.dart';
+import 'package:on_messenger/features/auth/screens/user_information_screen.dart';
 import 'package:on_messenger/mobile_layout_screen.dart';
 import 'package:on_messenger/models/user_model.dart';
+
+// ignore_for_file: use_build_context_synchronously, duplicate_ignore
 
 final authControllerProvider = Provider((ref) {
   final authRepository = ref.watch(authRepositoryProvider);
@@ -33,56 +33,87 @@ class AuthController {
     UserModel? user = await authRepository.getCurrentUserData();
     return user;
   }
-
-  void signInWithEmail(BuildContext context, String email, String password) async {
-    try {
-      await auth.signInWithEmailAndPassword(email: email, password: password);
-      Navigator.pushAndRemoveUntil(
+  
+  void pushToPage(context, classPage){
+    Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(
-          builder: (context) => const MobileLayoutScreen(),
+          builder: (context) => classPage,
         ),
         (route) => false,
       );
-    } on FirebaseAuthException catch (e, s) {print(e.hashCode);
-    _handleFirebaseLoginWithCredentialsException(e, s, context);
-
-  } on Exception catch (e) {
-    showSnackBar(context: context, content: 'Houve um erro inesperado, entre em contato: 4002-8922 ou bomdia@cia.com.');
   }
-  }
-
-  void _handleFirebaseLoginWithCredentialsException(Object e, StackTrace s, context) {
-  if (e.toString().contains('user-disabled')) {
-    showSnackBar(context: context, content: 'O usuário informado está desabilitado.');
-  } else if (e.toString().contains('user-not-found')) {
-    showSnackBar(context: context, content: 'O usuário informado não está cadastrado.');
-  } else if (e.toString().contains('invalid-email')) {
-    showSnackBar(context: context, content: 'O domínio do e-mail informado é inválido.');
-  } else if (e.toString().contains('wrong-password')) {
-    showSnackBar(context: context, content: 'A senha informada está incorreta.');
-  } else {
-    showSnackBar(context: context, content: 'Houve um erro inesperado, entre em contato: 4002-8922 ou bomdia@cia.com.');
-  }
-}
 
   void signUpWithEmail(
       BuildContext context, String email, String password) async {
-    authRepository.signUpWithEmail(context, email, password);
+    try {
+      await auth.createUserWithEmailAndPassword(
+          email: email, password: password);
+      pushToPage(context, const UserInformationScreen());
+    } on FirebaseAuthException catch (e, s) {
+      _handleFirebaseSingUpWithCredentialsException(e, s, context);
+    } on Exception catch (e) {
+      showSnackBar(
+          context: context,
+          content:
+              'Houve um erro inesperado, entre em contato: 4002-8922 ou bomdia@cia.com.');
+    }
   }
 
-  void saveUserDataToFirebase(
-      BuildContext context, String name, File? profilePic) {
-    authRepository.saveUserDataToFirebase(
-      name: name,
-      profilePic: profilePic,
-      ref: ref,
-      context: context,
-    );
-    if (kDebugMode) {
-      print("entrou no controller");
+  void _handleFirebaseSingUpWithCredentialsException(
+      Object e, StackTrace s, context) {
+    if (e.toString().contains('user-disabled')) {
+      showSnackBar(
+          context: context, content: 'O usuário informado está desabilitado.');
+    } else if (e.toString().contains('invalid-email')) {
+      showSnackBar(
+          context: context,
+          content: 'O domínio do e-mail informado é inválido.');
+    } else {
+      showSnackBar(
+          context: context,
+          content:
+              'Houve um erro inesperado, entre em contato: 4002-8922 ou bomdia@cia.com.');
     }
-    authRepository.teste();
+  }
+
+  void loginWithEmail(
+      BuildContext context, String email, String password) async {
+    try {
+      await auth.signInWithEmailAndPassword(email: email, password: password);
+      pushToPage(context, const MobileLayoutScreen());
+    } on FirebaseAuthException catch (e, s) {
+      _handleFirebaseLoginWithCredentialsException(e, s, context);
+    } on Exception catch (e) {
+      showSnackBar(
+          context: context,
+          content:
+              'Houve um erro inesperado, entre em contato: 4002-8922 ou bomdia@cia.com.');
+    }
+  }
+
+  void _handleFirebaseLoginWithCredentialsException(
+      Object e, StackTrace s, context) {
+    if (e.toString().contains('user-disabled')) {
+      showSnackBar(
+          context: context, content: 'O usuário informado está desabilitado.');
+    } else if (e.toString().contains('user-not-found')) {
+      showSnackBar(
+          context: context,
+          content: 'O usuário informado não está cadastrado.');
+    } else if (e.toString().contains('invalid-email')) {
+      showSnackBar(
+          context: context,
+          content: 'O domínio do e-mail informado é inválido.');
+    } else if (e.toString().contains('wrong-password')) {
+      showSnackBar(
+          context: context, content: 'A senha informada está incorreta.');
+    } else {
+      showSnackBar(
+          context: context,
+          content:
+              'Houve um erro inesperado, entre em contato: 4002-8922 ou bomdia@cia.com.');
+    }
   }
 
   Stream<UserModel> userDataById(String userId) {
