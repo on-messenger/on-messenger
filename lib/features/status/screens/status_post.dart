@@ -70,11 +70,11 @@ class _PostCreationState extends State<PostCreation> {
                       Row(
                         children: const [
                            Icon(
-                            Icons.public,
+                            Icons.business,
                             color: greyColor,
                             size: 18,
                           ),
-                          Text(" Compartilhe com o público",
+                          Text(" Eletricista Técnico",
                           ),
                         ],
                       )
@@ -104,7 +104,7 @@ class _PostCreationState extends State<PostCreation> {
                     decoration: const InputDecoration(
                       focusedBorder: InputBorder.none,
                       border: InputBorder.none,
-                      hintText: "O que você está pensando?",
+                      hintText: "Digite uma tarefa...",
                     ),
                   ),
                 ),
