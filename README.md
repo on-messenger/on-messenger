@@ -29,5 +29,5 @@ Then run the following commands to run your app:
     
 ## Feedback
 
-If you have any feedback, please reach out to me at gabe.dev@icloud.com
+If you have any feedback, please reach out to me at gabe.dev@icloud.com or bru.dev@icloud.com
 
