@@ -1,6 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:on_messenger/common/utils/colors.dart';
-
 
 class PostCreation extends StatefulWidget {
   const PostCreation({Key? key}) : super(key: key);
@@ -10,37 +11,56 @@ class PostCreation extends StatefulWidget {
 }
 
 class _PostCreationState extends State<PostCreation> {
-
   final _globalKey = GlobalKey<FormState>();
   final _postTextController = TextEditingController();
+  late String _idUserLogged;
+  late String nameRetriver;
+  String _urlImageRetrieved = "";
+  String _controllerName = "";
+
+  _retrieveDataUser() async {
+    FirebaseAuth auth = FirebaseAuth.instance;
+    User userLogged = auth.currentUser!;
+    _idUserLogged = userLogged.uid;
+
+    FirebaseFirestore db = FirebaseFirestore.instance;
+    DocumentSnapshot snapshot =
+        await db.collection("users").doc(_idUserLogged).get();
+
+    Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
+
+    _controllerName = data["name"];
+
+    if (data["profilePic"] != null) {
+      _urlImageRetrieved = data["profilePic"];
+      setState(() {
+        _urlImageRetrieved = data["profilePic"];
+      });
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _retrieveDataUser();
+  }
+
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
 
     return Scaffold(
       appBar: AppBar(
-        automaticallyImplyLeading: false,
-        elevation: 0.2,
-        backgroundColor: appBarColor,
-        leading: const BackButton(color: textColor),
-        centerTitle: false,
         title: const Text(
-          "Criar post",
-          style: TextStyle(
-                  color: textColor
-                ),
+          'Criar publicação',
+          textAlign: TextAlign.center,
         ),
-        actions: [
-          TextButton(
-              onPressed: (){},
-              child: const Text(
-                "Publicar",
-                style:TextStyle(
-                  color: textColor
-                ),
-              ),
-          ),
-        ],
+        leading: IconButton(
+          icon: const Icon(Icons.close),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -48,13 +68,14 @@ class _PostCreationState extends State<PostCreation> {
             Row(
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(left: 10, right: 10, top: 5),
+                  padding: const EdgeInsets.only(
+                      left: 25, right: 15, top: 15, bottom: 15),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(50.0),
-                    child: Image.asset("user_null.png",
-                      height: 50,
-                      width: 50,
-                      fit: BoxFit.cover,
+                    child: CircleAvatar(
+                      radius: 35,
+                      backgroundColor: Theme.of(context).primaryColorLight,
+                      backgroundImage: NetworkImage(_urlImageRetrieved),
                     ),
                   ),
                 ),
@@ -62,37 +83,36 @@ class _PostCreationState extends State<PostCreation> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text("Adagagilson Pereira",
+                      Text(
+                        _controllerName,
+                        textDirection: TextDirection.ltr,
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
+                        ),
                       ),
                       const SizedBox(
                         height: 5,
                       ),
-                      Row(
-                        children: const [
-                           Icon(
-                            Icons.business,
-                            color: greyColor,
-                            size: 18,
-                          ),
-                          Text(" Eletricista Técnico",
-                          ),
-                        ],
-                      )
+
+                      // Row(
+                      //   children: const [
+                      //     Icon(
+                      //       Icons.business,
+                      //       color: greyColor,
+                      //       size: 18,
+                      //     ),
+                      //   ],
+                      // )
                     ],
                   ),
                 ),
               ],
             ),
             Container(
-              margin: const EdgeInsets.only(left: 10, right: 10, top: 3),
-              width: size.width,
-              height: 0.5,
-              color: greyColor.withOpacity(0.3),
-            ),
-            Container(
               width: size.width,
               height: 90,
-              color: greyColor.withOpacity(0.15),
+              margin: const EdgeInsets.only(left: 5, right: 5),
               child: Form(
                 key: _globalKey,
                 child: Padding(
@@ -100,7 +120,7 @@ class _PostCreationState extends State<PostCreation> {
                   child: TextFormField(
                     controller: _postTextController,
                     maxLines: 5,
-                    minLines:1,
+                    minLines: 1,
                     decoration: const InputDecoration(
                       focusedBorder: InputBorder.none,
                       border: InputBorder.none,
@@ -112,20 +132,18 @@ class _PostCreationState extends State<PostCreation> {
             ),
             Padding(
               padding: const EdgeInsets.only(top: 10),
-              child: Row(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(right: 10, left: 5),
-                    child: Image.asset(
-                      "icon.png",
-                      height: 35,
-                    ),
+              child: Row(children: [
+                Padding(
+                  padding: const EdgeInsets.only(right: 10, left: 5),
+                  child: Image.asset(
+                    "icon.png",
+                    height: 35,
                   ),
-                  const Text(
-                      "Selecione uma imagem",
-                  ),
-                ]
-              ),
+                ),
+                const Text(
+                  "Selecione uma imagem",
+                ),
+              ]),
             ),
             Container(
               margin: const EdgeInsets.only(top: 10),
@@ -137,8 +155,8 @@ class _PostCreationState extends State<PostCreation> {
               margin: const EdgeInsets.only(top: 20, left: 10, right: 10),
               width: size.width,
               height: 50,
-              child:  ElevatedButton(
-                onPressed: (){},
+              child: ElevatedButton(
+                  onPressed: () {},
                   style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all(Colors.grey),
                     shape: MaterialStateProperty.all(
@@ -147,8 +165,7 @@ class _PostCreationState extends State<PostCreation> {
                       ),
                     ),
                   ),
-                child: const Text( "Publicar")
-              ),
+                  child: const Text("Publicar")),
             )
           ],
         ),

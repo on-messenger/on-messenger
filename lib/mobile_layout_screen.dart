@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:on_messenger/common/utils/colors.dart';
 import 'package:on_messenger/features/auth/controller/auth_controller.dart';
+import 'package:on_messenger/features/configuration/configuration_page.dart';
 import 'package:on_messenger/features/search_contacts/screen/page_contact.dart';
 import 'package:on_messenger/features/chat/widgets/contacts_list.dart';
 import 'package:on_messenger/features/auth/repository/logout_repository.dart';
@@ -101,15 +102,17 @@ class _MobileLayoutScreenState extends ConsumerState<MobileLayoutScreen>
                 color: Colors.grey,
               ),
               itemBuilder: (context) => [
-                // PopupMenuItem(
-                //   child: const Text(
-                //     'Criar Grupo',
-                //   ),
-                //   onTap: () => Future(
-                //     () => Navigator.pushNamed(
-                //         context, CreateGroupScreen.routeName),
-                //   ),
-                // ),
+                PopupMenuItem(
+                  child: const Text(
+                    'Configurações',
+                  ),
+                  onTap: () => Future(
+                    () => Navigator.pushNamed(
+                      context,
+                      Configuration.routeName,
+                    ),
+                  ),
+                ),
                 PopupMenuItem(
                   child: const Text(
                     'Sair',

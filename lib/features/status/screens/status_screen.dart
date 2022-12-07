@@ -1,4 +1,6 @@
 import 'dart:ui';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:on_messenger/common/utils/colors.dart';
 import 'package:on_messenger/features/status/screens/status_post.dart';
@@ -17,36 +19,97 @@ class QuickHelp {
 }
 
 class _FeedScreenState extends State<FeedScreen> {
+  late String _idUserLogged;
+  String _urlImageRetrieved = "";
+  String _controllerName = "";
+
+  _retrieveDataUser() async {
+    FirebaseAuth auth = FirebaseAuth.instance;
+    User userLogged = auth.currentUser!;
+    _idUserLogged = userLogged.uid;
+
+    FirebaseFirestore db = FirebaseFirestore.instance;
+    DocumentSnapshot snapshot =
+        await db.collection("users").doc(_idUserLogged).get();
+
+    Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
+
+    _controllerName = data["name"];
+
+    if (data["profilePic"] != null) {
+      _urlImageRetrieved = data["profilePic"];
+      setState(() {
+        _urlImageRetrieved = data["profilePic"];
+      });
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _retrieveDataUser();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-        toolbarHeight: 70.0,
-        backgroundColor: appBarColor,
-        automaticallyImplyLeading: false,
-        leadingWidth: 60,
-        title: const Text("Batata"),
-        centerTitle: false,
+      body: Column(
+        children: [
+          Row(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(top: 25, left: 25, bottom: 25),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(50.0),
+                  child: CircleAvatar(
+                    radius: 35,
+                    backgroundColor: Theme.of(context).primaryColorLight,
+                    backgroundImage: NetworkImage(_urlImageRetrieved),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(
+                    top: 30, bottom: 30, right: 30, left: 15),
+                child: ActionChip(
+                  label: Text(
+                    'No que você esta pensando, $_controllerName?',
+                    style: const TextStyle(
+                      fontSize: 18,
+                      color: Colors.white,
+                    ),
+                  ),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: QuickHelp.goToNavigationScreen(
+                            const PostCreation(), context),
+                      ),
+                    );
+                  },
+                ),
+              ),
+            ],
+          ),
+        ],
       ),
-      
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder:
-                  QuickHelp.goToNavigationScreen(const PostCreation(), context),
-            ),
-          );
-        },
-        backgroundColor: appBarColor,
-        child: const Icon(
-          Icons.add,
-          color: Colors.white,
-        ),
-      ),
-
+      // floatingActionButton: FloatingActionButton(
+      //   onPressed: () {
+      //     Navigator.push(
+      //       context,
+      //       MaterialPageRoute(
+      //         builder:
+      //             QuickHelp.goToNavigationScreen(const PostCreation(), context),
+      //       ),
+      //     );
+      //   },
+      //   backgroundColor: appBarColor,
+      //   child: const Icon(
+      //     Icons.add,
+      //     color: Colors.white,
+      //   ),
+      // ),
       /* body: ListView(
         children: List.generate(
           Post.users.length,
