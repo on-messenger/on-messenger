@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:on_messenger/common/repositories/common_firebase_storage_repository.dart';
 import 'package:on_messenger/common/utils/utils.dart';
-import 'package:on_messenger/features/auth/controller/auth_controller.dart';
 import 'package:on_messenger/mobile_layout_screen.dart';
 import 'package:on_messenger/models/user_model.dart';
 
@@ -24,7 +23,9 @@ class _UserInformationScreenState extends ConsumerState<UserInformationScreen> {
   FirebaseAuth auth = FirebaseAuth.instance;
   FirebaseFirestore firestore = FirebaseFirestore.instance;
   File? image;
-  final ProviderRef _ref = CommonFirebaseStorageRepository(firebaseStorage: FirebaseStorage.instance) as ProviderRef;
+  final ProviderRef _ref =
+      CommonFirebaseStorageRepository(firebaseStorage: FirebaseStorage.instance)
+          as ProviderRef;
 
   @override
   void dispose() {
@@ -84,10 +85,8 @@ class _UserInformationScreenState extends ConsumerState<UserInformationScreen> {
     String name = nameController.text.trim();
 
     if (name.isNotEmpty) {
-      saveUserDataToFirebase(name: name,
-       profilePic: image, 
-       ref: _ref, 
-       context: context);
+      saveUserDataToFirebase(
+          name: name, profilePic: image, ref: _ref, context: context);
     }
   }
 

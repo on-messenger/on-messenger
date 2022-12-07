@@ -4,6 +4,7 @@ import 'package:on_messenger/features/auth/screens/login_screen.dart';
 import 'package:on_messenger/features/auth/screens/signup_screen.dart';
 import 'package:on_messenger/features/auth/screens/user_information_screen.dart';
 import 'package:on_messenger/features/chat/screens/mobile_chat_screen.dart';
+import 'package:on_messenger/features/configuration/configuration_page.dart';
 
 import 'features/landing/screens/landing_screen.dart';
 
@@ -23,10 +24,10 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return MaterialPageRoute(
         builder: (context) => const UserInformationScreen(),
       );
-    // case SelectContactsScreen.routeName:
-    //   return MaterialPageRoute(
-    //     builder: (context) => const SelectContactsScreen(),
-    //   );
+    case Configuration.routeName:
+      return MaterialPageRoute(
+        builder: (context) => const Configuration(),
+      );
     case MobileChatScreen.routeName:
       final arguments = settings.arguments as Map<String, dynamic>;
       final name = arguments['name'];

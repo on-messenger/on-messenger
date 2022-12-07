@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -33,15 +32,15 @@ class AuthController {
     UserModel? user = await authRepository.getCurrentUserData();
     return user;
   }
-  
-  void pushToPage(context, classPage){
+
+  void pushToPage(context, classPage) {
     Navigator.pushAndRemoveUntil(
-        context,
-        MaterialPageRoute(
-          builder: (context) => classPage,
-        ),
-        (route) => false,
-      );
+      context,
+      MaterialPageRoute(
+        builder: (context) => classPage,
+      ),
+      (route) => false,
+    );
   }
 
   void signUpWithEmail(
@@ -52,7 +51,7 @@ class AuthController {
       pushToPage(context, const UserInformationScreen());
     } on FirebaseAuthException catch (e, s) {
       _handleFirebaseSingUpWithCredentialsException(e, s, context);
-    } on Exception catch (e) {
+    } on Exception {
       showSnackBar(
           context: context,
           content:
@@ -84,7 +83,7 @@ class AuthController {
       pushToPage(context, const MobileLayoutScreen());
     } on FirebaseAuthException catch (e, s) {
       _handleFirebaseLoginWithCredentialsException(e, s, context);
-    } on Exception catch (e) {
+    } on Exception {
       showSnackBar(
           context: context,
           content:
