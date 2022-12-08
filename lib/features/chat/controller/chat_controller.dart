@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:on_messenger/common/enums/message_enum.dart';
 import 'package:on_messenger/common/providers/message_reply_provider.dart';
+import 'package:on_messenger/common/utils/utils.dart';
 import 'package:on_messenger/features/auth/controller/auth_controller.dart';
 import 'package:on_messenger/features/chat/repositories/chat_repository.dart';
 import 'package:on_messenger/models/chat_contact.dart';
@@ -58,9 +59,23 @@ class ChatController {
     required MessageEnum messageType,
     required MessageReply? messageReply,
     required String senderUsername,
-    required String? recieverUserName,
     required bool isGroupChat,
   }) async {
+    UserModel? recieverUserData;
+
+    if (!isGroupChat) {
+      var userDataMap =
+          await firestore.collection('users').doc(recieverUserId).get();
+      recieverUserData = UserModel.fromMap(userDataMap.data()!);
+    }
+
+    if (kDebugMode) {
+      print(recieverUserData!.name);
+    }
+    if (kDebugMode) {
+      print(auth.currentUser!.displayName);
+    }
+
     final message = Message(
       senderId: senderUserId,
       recieverid: recieverUserId,
@@ -74,7 +89,7 @@ class ChatController {
           ? ''
           : messageReply.isMe
               ? senderUsername
-              : recieverUserName ?? '',
+              : recieverUserData?.name ?? "",
       repliedMessageType:
           messageReply == null ? MessageEnum.text : messageReply.messageEnum,
     );
@@ -138,8 +153,7 @@ class ChatController {
         messageId: messageId,
         messageType: MessageEnum.text,
         messageReply: messageReply,
-        senderUsername: "senderUsername",
-        recieverUserName: "recieverUserName",
+        senderUsername: auth.currentUser!.displayName ?? "",
         isGroupChat: isGroupChat);
     ref.read(userDataAuthProvider).whenData(
           (senderUser) => chatRepository.sendTextMessage(
@@ -152,6 +166,12 @@ class ChatController {
           ),
         );
     ref.read(messageReplyProvider.state).update((state) => null);
+    //if (kDebugMode) {
+    //  print(recieverUserData!.name);
+    //}
+    if (kDebugMode) {
+      print(auth.currentUser!.displayName);
+    }
   }
 
   void sendFileMessage(
