@@ -9,6 +9,8 @@ import 'package:on_messenger/common/utils/utils.dart';
 import 'package:on_messenger/mobile_layout_screen.dart';
 import 'package:on_messenger/models/user_model.dart';
 
+import '../controller/auth_controller.dart';
+
 class UserInformationScreen extends ConsumerStatefulWidget {
   static const String routeName = '/user-information';
   const UserInformationScreen({Key? key}) : super(key: key);
@@ -23,9 +25,6 @@ class _UserInformationScreenState extends ConsumerState<UserInformationScreen> {
   FirebaseAuth auth = FirebaseAuth.instance;
   FirebaseFirestore firestore = FirebaseFirestore.instance;
   File? image;
-  final ProviderRef _ref =
-      CommonFirebaseStorageRepository(firebaseStorage: FirebaseStorage.instance)
-          as ProviderRef;
 
   @override
   void dispose() {
@@ -85,8 +84,11 @@ class _UserInformationScreenState extends ConsumerState<UserInformationScreen> {
     String name = nameController.text.trim();
 
     if (name.isNotEmpty) {
-      saveUserDataToFirebase(
-          name: name, profilePic: image, ref: _ref, context: context);
+      ref.read(authControllerProvider).saveUserDataToFirebase(
+        context,
+        name,
+        image,
+      );
     }
   }
 
