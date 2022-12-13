@@ -1,8 +1,13 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intl/intl.dart';
 import 'package:on_messenger/common/utils/colors.dart';
-
+import '../../../common/widgets/loader.dart';
 import '../../../common/widgets/todo_item.dart';
 import '../../../models/todo.dart';
+import '../../task/controller/task_controller.dart';
 
 class Task extends StatefulWidget {
   const Task({Key? key}) : super(key: key);
@@ -12,120 +17,81 @@ class Task extends StatefulWidget {
 }
 
 class _TaskState extends State<Task> {
-  final todosList = ToDo.todoList();
+  final ScrollController _todoController = ScrollController();
+  final todosList = [];
+  late ProviderRef ref;
   List<ToDo> _foundToDo = [];
-  final _todoController = TextEditingController();
 
   @override
   void initState() {
-    _foundToDo = todosList;
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: appBarColor,
-      appBar: _buildAppBar(),
-      body: Stack(
-        children: [
-          Container(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 20,
-              vertical: 15,
-            ),
-            child: Column(
-              children: [
-                searchBox(),
-                Expanded(
-                  child: ListView(
-                    children: [
-                      Container(
-                        margin: const EdgeInsets.only(
-                          top: 50,
-                          bottom: 20,
-                        ),
-                        child: const Text(
-                          'All ToDos',
-                          style: TextStyle(
-                            fontSize: 30,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                      ),
-                      for (ToDo todoo in _foundToDo.reversed)
-                        ToDoItem(
-                          todo: todoo,
-                          onToDoChanged: _handleToDoChange,
-                          onDeleteItem: _deleteToDoItem,
-                        ),
-                    ],
+    return StreamBuilder<List<ToDo>>(
+        stream: ref
+            .read(taskControllerProvider)
+            .chatStream(widget.recieverUserId),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Loader();
+          }
+
+          SchedulerBinding.instance.addPostFrameCallback((_) {
+            _todoController
+                .jumpTo(_todoController.position.maxScrollExtent);
+          });
+
+          return ListView.builder(
+            controller: _todoController,
+            itemCount: snapshot.data!.length,
+            itemBuilder: (context, index) {
+              final messageData = snapshot.data![index];
+              var timeSent = DateFormat.Hm().format(messageData.timeSent);
+
+              if (!messageData.isSeen &&
+                  messageData.recieverId ==
+                      FirebaseAuth.instance.currentUser!.uid) {
+                ref.read(chatControllerProvider).setChatMessageSeen(
+                  context,
+                  widget.recieverUserId,
+                  messageData.messageId,
+                );
+              }
+              if (messageData.senderId ==
+                  FirebaseAuth.instance.currentUser!.uid) {
+                return MyMessageCard(
+                  message: messageData.text,
+                  date: timeSent,
+                  type: messageData.type,
+                  repliedText: messageData.repliedMessage,
+                  username: messageData.repliedTo,
+                  repliedMessageType: messageData.repliedMessageType,
+                  onLeftSwipe: () => onMessageSwipe(
+                    messageData.text,
+                    true,
+                    messageData.type,
                   ),
-                )
-              ],
-            ),
-          ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Row(children: [
-              Expanded(
-                child: Container(
-                  margin: const EdgeInsets.only(
-                    bottom: 20,
-                    right: 20,
-                    left: 20,
-                  ),
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 20,
-                    vertical: 5,
-                  ),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    boxShadow: const [
-                      BoxShadow(
-                        color: senderMessageColor,
-                        offset: Offset(0.0, 0.0),
-                        blurRadius: 10.0,
-                        spreadRadius: 0.0,
-                      ),
-                    ],
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: TextField(
-                    controller: _todoController,
-                    decoration: const InputDecoration(
-                        hintText: 'Add a new todo item',
-                        border: InputBorder.none),
-                  ),
+                  isSeen: messageData.isSeen,
+                );
+              }
+              return SenderMessageCard(
+                message: messageData.text,
+                date: timeSent,
+                type: messageData.type,
+                username: messageData.repliedTo,
+                repliedMessageType: messageData.repliedMessageType,
+                onRightSwipe: () => onMessageSwipe(
+                  messageData.text,
+                  false,
+                  messageData.type,
                 ),
-              ),
-              Container(
-                margin: const EdgeInsets.only(
-                  bottom: 20,
-                  right: 20,
-                ),
-                child: ElevatedButton(
-                  onPressed: () {
-                    _addToDoItem(_todoController.text);
-                  },
-                  style: ElevatedButton.styleFrom(
-                    primary: Colors.blueAccent,
-                    minimumSize: const Size(60, 60),
-                    elevation: 10,
-                  ),
-                  child: const Text(
-                    '+',
-                    style: TextStyle(
-                      fontSize: 40,
-                    ),
-                  ),
-                ),
-              ),
-            ]),
-          ),
-        ],
-      ),
-    );
+                repliedText: messageData.repliedMessage,
+              );
+            },
+          );
+        });
   }
 
   void _handleToDoChange(ToDo todo) {
@@ -152,15 +118,7 @@ class _TaskState extends State<Task> {
 
   void _runFilter(String enteredKeyword) {
     List<ToDo> results = [];
-    if (enteredKeyword.isEmpty) {
-      results = todosList;
-    } else {
-      results = todosList
-          .where((item) => item.todoText!
-              .toLowerCase()
-              .contains(enteredKeyword.toLowerCase()))
-          .toList();
-    }
+    getTaskStream();
 
     setState(() {
       _foundToDo = results;
