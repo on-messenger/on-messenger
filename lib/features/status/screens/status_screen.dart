@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:on_messenger/common/utils/colors.dart';
 import 'package:on_messenger/features/status/screens/status_post.dart';
+import 'package:on_messenger/features/task/screen/task_screen.dart';
 
 class FeedScreen extends StatefulWidget {
   const FeedScreen({Key? key}) : super(key: key);
@@ -14,7 +15,7 @@ class FeedScreen extends StatefulWidget {
 
 class QuickHelp {
   static goToNavigationScreen(Widget widget, BuildContext context) {
-    Navigator.push(context, MaterialPageRoute(builder: (context) => widget));
+    Navigator.push(context, MaterialPageRoute(builder: (context)   => widget));
   }
 }
 
@@ -84,7 +85,7 @@ class _FeedScreenState extends State<FeedScreen> {
                       context,
                       MaterialPageRoute(
                         builder: QuickHelp.goToNavigationScreen(
-                            const PostCreation(), context),
+                            const Task(), context),
                       ),
                     );
                   },
@@ -94,34 +95,6 @@ class _FeedScreenState extends State<FeedScreen> {
           ),
         ],
       ),
-      // floatingActionButton: FloatingActionButton(
-      //   onPressed: () {
-      //     Navigator.push(
-      //       context,
-      //       MaterialPageRoute(
-      //         builder:
-      //             QuickHelp.goToNavigationScreen(const PostCreation(), context),
-      //       ),
-      //     );
-      //   },
-      //   backgroundColor: appBarColor,
-      //   child: const Icon(
-      //     Icons.add,
-      //     color: Colors.white,
-      //   ),
-      // ),
-      /* body: ListView(
-        children: List.generate(
-          Post.users.length,
-          (index) => post(
-            
-              userName: Post.users[index]["user"]["name"],  //TUDO REFERENTE A .POST ESTA PUXANDO AS INFORMAÇÕES LOCALMENTE (DE ACORDO COM O VIDEO) E DEVE SER SUBSTITUIDO PELAS INFORMAÇÕES CONTIDAS NO BANCO DE DADOS.
-              postDate: Post.post[index]["post"]["date"],
-              postText: Post.post[index]["post"]["text"],
-              postImage: Post.post[index]["post"]["picture"],
-              userImage: Post.users[index]["user"]["picture"]),
-        ),
-      ),*/
     );
   }
 

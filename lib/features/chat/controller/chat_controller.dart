@@ -2,12 +2,10 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:on_messenger/common/enums/message_enum.dart';
 import 'package:on_messenger/common/providers/message_reply_provider.dart';
-import 'package:on_messenger/common/utils/utils.dart';
 import 'package:on_messenger/features/auth/controller/auth_controller.dart';
 import 'package:on_messenger/features/chat/repositories/chat_repository.dart';
 import 'package:on_messenger/models/chat_contact.dart';
@@ -58,22 +56,17 @@ class ChatController {
     required String messageId,
     required MessageEnum messageType,
     required MessageReply? messageReply,
-    required String senderUsername,
     required bool isGroupChat,
   }) async {
-    UserModel? recieverUserData;
+    UserModel? recieverUserData, currentUser;
 
     if (!isGroupChat) {
       var userDataMap =
           await firestore.collection('users').doc(recieverUserId).get();
       recieverUserData = UserModel.fromMap(userDataMap.data()!);
-    }
-
-    if (kDebugMode) {
-      print(recieverUserData!.name);
-    }
-    if (kDebugMode) {
-      print(auth.currentUser!.displayName);
+      userDataMap = 
+          await firestore.collection('users').doc(senderUserId).get();
+      currentUser = UserModel.fromMap(userDataMap.data()!);
     }
 
     final message = Message(
@@ -88,7 +81,7 @@ class ChatController {
       repliedTo: messageReply == null
           ? ''
           : messageReply.isMe
-              ? senderUsername
+              ? currentUser!.name
               : recieverUserData?.name ?? "",
       repliedMessageType:
           messageReply == null ? MessageEnum.text : messageReply.messageEnum,
@@ -105,9 +98,6 @@ class ChatController {
           );
     } else {
       // users -> sender id -> reciever id -> messages -> message id -> store message
-      if (kDebugMode) {
-        print("Chegou nesse aqui");
-      }
       await firestore
           .collection('users')
           .doc(senderUserId)
@@ -119,9 +109,6 @@ class ChatController {
             message.toMap(),
           );
       // users -> reciever id  -> sender id -> messages -> message id -> store message
-      if (kDebugMode) {
-        print("Agora nesse aqui");
-      }
       await firestore
           .collection('users')
           .doc(recieverUserId)
@@ -153,7 +140,6 @@ class ChatController {
         messageId: messageId,
         messageType: MessageEnum.text,
         messageReply: messageReply,
-        senderUsername: auth.currentUser!.displayName ?? "",
         isGroupChat: isGroupChat);
     ref.read(userDataAuthProvider).whenData(
           (senderUser) => chatRepository.sendTextMessage(
@@ -166,12 +152,6 @@ class ChatController {
           ),
         );
     ref.read(messageReplyProvider.state).update((state) => null);
-    //if (kDebugMode) {
-    //  print(recieverUserData!.name);
-    //}
-    if (kDebugMode) {
-      print(auth.currentUser!.displayName);
-    }
   }
 
   void sendFileMessage(
