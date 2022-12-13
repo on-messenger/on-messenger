@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:on_messenger/common/providers/message_reply_provider.dart';
+import 'package:on_messenger/common/utils/colors.dart';
 import 'package:on_messenger/features/chat/widgets/display_text_image_gif.dart';
 
 class MessageReplyPreview extends ConsumerWidget {
@@ -18,7 +19,7 @@ class MessageReplyPreview extends ConsumerWidget {
       width: 350,
       padding: const EdgeInsets.all(8),
       decoration: const BoxDecoration(
-        color: Colors.transparent,
+        color: senderMessageColor,
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(12),
           topRight: Radius.circular(12),
