@@ -12,6 +12,7 @@ import 'package:on_messenger/models/group.dart';
 import 'package:on_messenger/models/message.dart';
 import 'package:on_messenger/models/user_model.dart';
 import 'package:uuid/uuid.dart';
+import '../../../common/utils/utils.dart';
 import '../../../models/todo.dart';
 import '../repository/task_repository.dart';
 
@@ -33,169 +34,88 @@ class TaskController {
     required this.ref,
   });
 
-  Stream<List<ToDo>> chatStream() {
+  Stream<List<ToDo>> taskStream() {
     return taskRepository.getTaskStream();
   }
 
-  void _saveMessageToMessageSubcollection({
-    required String recieverUserId,
-    required String senderUserId,
-    required String text,
+  void _saveTask({
+    required String senderId,
+    required String recieverId,
     required DateTime timeSent,
-    required String messageId,
-    required MessageEnum messageType,
-    required MessageReply? messageReply,
-    required bool isGroupChat,
+    required String id,
+    required String todoText,
+    required bool isSeen,
+    required bool isDone,
   }) async {
-    UserModel? recieverUserData, currentUser;
-
-    if (!isGroupChat) {
-      var userDataMap =
-      await firestore.collection('users').doc(recieverUserId).get();
-      recieverUserData = UserModel.fromMap(userDataMap.data()!);
-      userDataMap =
-      await firestore.collection('users').doc(senderUserId).get();
-      currentUser = UserModel.fromMap(userDataMap.data()!);
-    }
-
-    final message = Message(
-      senderId: senderUserId,
-      recieverid: recieverUserId,
-      text: text,
-      type: messageType,
+    final todo = ToDo(
+      senderId: auth.currentUser!.uid,
+      recieverId: recieverId,
+      todoText: todoText,
       timeSent: timeSent,
-      messageId: messageId,
+      id: id,
       isSeen: false,
-      repliedMessage: messageReply == null ? '' : messageReply.message,
-      repliedTo: messageReply == null
-          ? ''
-          : messageReply.isMe
-          ? currentUser!.name
-          : recieverUserData?.name ?? "",
-      repliedMessageType:
-      messageReply == null ? MessageEnum.text : messageReply.messageEnum,
+      isDone: false,
     );
-    if (isGroupChat) {
-      // groups -> group id -> chat -> message
-      await firestore
-          .collection('groups')
-          .doc(recieverUserId)
-          .collection('chats')
-          .doc(messageId)
-          .set(
-        message.toMap(),
+    // users -> sender id -> reciever id -> tasks -> message id -> store message
+    await firestore
+        .collection('users')
+        .doc(auth.currentUser!.uid)
+        .collection('tasks')
+        .doc(recieverId)
+        .collection('todo')
+        .doc(id)
+        .set(
+      todo.toMap(),
+    );
+    // users -> reciever id  -> sender id -> tasks -> message id -> store message
+    await firestore
+        .collection('users')
+        .doc(recieverId)
+        .collection('tasks')
+        .doc(auth.currentUser!.uid)
+        .collection('todo')
+        .doc(id)
+        .set(
+      todo.toMap(),
+    );
+  }
+
+  void sendTextTask({
+    required BuildContext context,
+    required String senderId,
+    required String recieverEmail,
+    required String todoText,
+    required bool isSeen,
+    required bool isDone,
+  }) async {
+    try {
+      var userDataMap = await firestore.collection('users').doc(recieverEmail).get();
+      UserModel recieverUserData = UserModel.fromMap(userDataMap.data()!);
+
+      var timeSent = DateTime.now();
+
+      var id = const Uuid().v1();
+
+      _saveTask(
+        recieverId: recieverUserData.uid,
+        todoText: todoText,
+        timeSent: timeSent,
+        id: id,
+        isSeen: isSeen,
+        isDone: isDone,
+        senderId: senderId,
       );
-    } else {
-      // users -> sender id -> reciever id -> messages -> message id -> store message
-      await firestore
-          .collection('users')
-          .doc(senderUserId)
-          .collection('chats')
-          .doc(recieverUserId)
-          .collection('messages')
-          .doc(messageId)
-          .set(
-        message.toMap(),
-      );
-      // users -> reciever id  -> sender id -> messages -> message id -> store message
-      await firestore
-          .collection('users')
-          .doc(recieverUserId)
-          .collection('chats')
-          .doc(senderUserId)
-          .collection('messages')
-          .doc(messageId)
-          .set(
-        message.toMap(),
-      );
+    } catch (e) {
+      showSnackBar(context: context, content: e.toString());
     }
   }
 
-  void sendTextMessage(
-      BuildContext context,
-      String text,
-      String recieverUserId,
-      UserModel senderUser,
-      bool isGroupChat,
-      ) {
-    final messageReply = ref.read(messageReplyProvider);
-    var timeSent = DateTime.now();
-    var messageId = const Uuid().v1();
-    _saveMessageToMessageSubcollection(
-        recieverUserId: recieverUserId,
-        senderUserId: auth.currentUser!.uid,
-        text: text,
-        timeSent: timeSent,
-        messageId: messageId,
-        messageType: MessageEnum.text,
-        messageReply: messageReply,
-        isGroupChat: isGroupChat);
-    ref.read(userDataAuthProvider).whenData(
-          (senderUser) => taskRepository.sendTextMessage(
-        context: context,
-        text: text,
-        recieverUserId: recieverUserId,
-        senderUser: senderUser!,
-        messageReply: messageReply,
-        isGroupChat: isGroupChat,
-      ),
-    );
-    ref.read(messageReplyProvider.state).update((state) => null);
-  }
-
-  void sendFileMessage(
-      BuildContext context,
-      File file,
-      String recieverUserId,
-      MessageEnum messageEnum,
-      bool isGroupChat,
-      ) {
-    final messageReply = ref.read(messageReplyProvider);
-    ref.read(userDataAuthProvider).whenData(
-          (value) => taskRepository.sendFileMessage(
-        context: context,
-        file: file,
-        recieverUserId: recieverUserId,
-        senderUserData: value!,
-        messageEnum: messageEnum,
-        ref: ref,
-        messageReply: messageReply,
-        isGroupChat: isGroupChat,
-      ),
-    );
-    ref.read(messageReplyProvider.state).update((state) => null);
-  }
-
-  void sendGIFMessage(
-      BuildContext context,
-      String gifUrl,
-      String recieverUserId,
-      bool isGroupChat,
-      ) {
-    final messageReply = ref.read(messageReplyProvider);
-    int gifUrlPartIndex = gifUrl.lastIndexOf('-') + 1;
-    String gifUrlPart = gifUrl.substring(gifUrlPartIndex);
-    String newgifUrl = 'https://i.giphy.com/media/$gifUrlPart/200.gif';
-
-    ref.read(userDataAuthProvider).whenData(
-          (value) => taskRepository.sendGIFMessage(
-        context: context,
-        gifUrl: newgifUrl,
-        recieverUserId: recieverUserId,
-        senderUser: value!,
-        messageReply: messageReply,
-        isGroupChat: isGroupChat,
-      ),
-    );
-    ref.read(messageReplyProvider.state).update((state) => null);
-  }
-
-  void setChatMessageSeen(
+  void setTaskSeen(
       BuildContext context,
       String recieverUserId,
       String messageId,
       ) {
-    taskRepository.setChatMessageSeen(
+    taskRepository.setTaskSeen(
       context,
       recieverUserId,
       messageId,

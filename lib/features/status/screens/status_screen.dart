@@ -3,7 +3,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:on_messenger/common/utils/colors.dart';
-import 'package:on_messenger/features/status/screens/status_post.dart';
 import 'package:on_messenger/features/task/screen/task_screen.dart';
 
 class FeedScreen extends StatefulWidget {
@@ -85,7 +84,7 @@ class _FeedScreenState extends State<FeedScreen> {
                       context,
                       MaterialPageRoute(
                         builder: QuickHelp.goToNavigationScreen(
-                            const Task(), context),
+                            TaskStateScreen(), context),
                       ),
                     );
                   },

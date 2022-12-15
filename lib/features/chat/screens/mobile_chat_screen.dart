@@ -13,6 +13,7 @@ class MobileChatScreen extends ConsumerWidget {
   final String uid;
   final bool isGroupChat;
   final String profilePic;
+
   const MobileChatScreen({
     Key? key,
     required this.name,
@@ -20,16 +21,6 @@ class MobileChatScreen extends ConsumerWidget {
     required this.isGroupChat,
     required this.profilePic,
   }) : super(key: key);
-
-  // void makeCall(WidgetRef ref, BuildContext context) {
-  //   ref.read(callControllerProvider).makeCall(
-  //         context,
-  //         name,
-  //         uid,
-  //         profilePic,
-  //         isGroupChat,
-  //       );
-  // }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -88,7 +79,6 @@ class MobileChatScreen extends ConsumerWidget {
         ),
       
         body: Column(
-          
           children: [
             Expanded(
               child: ChatList(

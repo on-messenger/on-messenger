@@ -1,3 +1,4 @@
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:on_messenger/common/widgets/error.dart';
 import 'package:on_messenger/features/auth/screens/login_screen.dart';
@@ -5,11 +6,14 @@ import 'package:on_messenger/features/auth/screens/signup_screen.dart';
 import 'package:on_messenger/features/auth/screens/user_information_screen.dart';
 import 'package:on_messenger/features/chat/screens/mobile_chat_screen.dart';
 import 'package:on_messenger/features/configuration/configuration_page.dart';
+import 'package:on_messenger/features/task/screen/task_screen.dart';
 
 import 'features/landing/screens/landing_screen.dart';
 
 Route<dynamic> generateRoute(RouteSettings settings) {
   switch (settings.name) {
+    case TaskStateScreen.routeName:
+      return MaterialPageRoute(builder: (_) => TaskStateScreen());
     case LandingScreen.routeName:
       return MaterialPageRoute(builder: (_) => const LandingScreen());
     case LoginScreen.routeName:
