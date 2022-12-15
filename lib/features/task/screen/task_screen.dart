@@ -1,3 +1,35 @@
+<<<<<<< HEAD
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:on_messenger/common/utils/colors.dart';
+import 'package:on_messenger/features/task/widgets/task_list.dart';
+import '../widgets/field_task.dart';
+
+// ignore: must_be_immutable
+class TaskStateScreen extends ConsumerWidget {
+  static const routeName = '/task-screen';
+  FirebaseAuth auth = FirebaseAuth.instance;
+  FirebaseFirestore firestore = FirebaseFirestore.instance;
+
+  late ProviderRef ref;
+
+  TaskStateScreen({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return SafeArea(
+      child: Scaffold(
+        appBar: _buildAppBar(),
+        body: Column(
+          children: const [
+            Expanded(
+              child: TaskList(),
+            ),
+            BottomTaskField(),
+          ],
+=======
 import 'package:flutter/material.dart';
 import 'package:on_messenger/common/utils/colors.dart';
 
@@ -190,6 +222,7 @@ class _TaskState extends State<Task> {
           border: InputBorder.none,
           hintText: 'Search',
           hintStyle: TextStyle(color: senderMessageColor),
+>>>>>>> bac0d1285ea17eb62fe02f29730f0797c337db91
         ),
       ),
     );
@@ -202,7 +235,11 @@ class _TaskState extends State<Task> {
       title: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
         const Icon(
           Icons.menu,
+<<<<<<< HEAD
+          color: Colors.white,
+=======
           color: appBarColor,
+>>>>>>> bac0d1285ea17eb62fe02f29730f0797c337db91
           size: 30,
         ),
         SizedBox(
@@ -210,7 +247,12 @@ class _TaskState extends State<Task> {
           width: 40,
           child: ClipRRect(
             borderRadius: BorderRadius.circular(20),
+<<<<<<< HEAD
+            child:
+                Image.asset(auth.currentUser!.photoURL ?? "../assets/icon.png"),
+=======
             child: Image.asset('assets/images/avatar.jpeg'),
+>>>>>>> bac0d1285ea17eb62fe02f29730f0797c337db91
           ),
         ),
       ]),

@@ -5,11 +5,14 @@ import 'package:on_messenger/features/auth/screens/signup_screen.dart';
 import 'package:on_messenger/features/auth/screens/user_information_screen.dart';
 import 'package:on_messenger/features/chat/screens/mobile_chat_screen.dart';
 import 'package:on_messenger/features/configuration/configuration_page.dart';
+import 'package:on_messenger/features/task/screen/task_screen.dart';
 
-import 'features/landing/screens/landing_screen.dart';
+import 'features/landing/landing_screen.dart';
 
 Route<dynamic> generateRoute(RouteSettings settings) {
   switch (settings.name) {
+    case TaskStateScreen.routeName:
+      return MaterialPageRoute(builder: (_) => TaskStateScreen());
     case LandingScreen.routeName:
       return MaterialPageRoute(builder: (_) => const LandingScreen());
     case LoginScreen.routeName:
@@ -42,24 +45,6 @@ Route<dynamic> generateRoute(RouteSettings settings) {
           profilePic: profilePic,
         ),
       );
-    // case ConfirmStatusScreen.routeName:
-    //   final file = settings.arguments as File;
-    //   return MaterialPageRoute(
-    //     builder: (context) => ConfirmStatusScreen(
-    //       file: file,
-    //     ),
-    //   );
-    // case StatusScreen.routeName:
-    //   final status = settings.arguments as Status;
-    //   return MaterialPageRoute(
-    //     builder: (context) => StatusScreen(
-    //       status: status,
-    //     ),
-    //   );
-    // case CreateGroupScreen.routeName:
-    //   return MaterialPageRoute(
-    //     builder: (context) => const CreateGroupScreen(),
-    //   );
     default:
       return MaterialPageRoute(
         builder: (context) => const Scaffold(
