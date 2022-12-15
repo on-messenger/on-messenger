@@ -13,6 +13,7 @@ class MobileChatScreen extends ConsumerWidget {
   final String uid;
   final bool isGroupChat;
   final String profilePic;
+
   const MobileChatScreen({
     Key? key,
     required this.name,
@@ -21,20 +22,9 @@ class MobileChatScreen extends ConsumerWidget {
     required this.profilePic,
   }) : super(key: key);
 
-  // void makeCall(WidgetRef ref, BuildContext context) {
-  //   ref.read(callControllerProvider).makeCall(
-  //         context,
-  //         name,
-  //         uid,
-  //         profilePic,
-  //         isGroupChat,
-  //       );
-  // }
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return SafeArea(
-      
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: appBarColor,
@@ -71,24 +61,8 @@ class MobileChatScreen extends ConsumerWidget {
                     );
                   }),
           centerTitle: false,
-          // actions: [
-          //   IconButton(
-          //     onPressed: () => m**a**keCall(ref, context),
-          //     icon: const Icon(Icons.video_call),
-          //   ),
-          //   IconButton(
-          //     onPressed: () {},
-          //     icon: const Icon(Icons.call),
-          //   ),
-          //   IconButton(
-          //     onPressed: () {},
-          //     icon: const Icon(Icons.more_vert),
-          //   ),
-          // ],
         ),
-      
         body: Column(
-          
           children: [
             Expanded(
               child: ChatList(

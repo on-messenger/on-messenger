@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import '../../landing/screens/landing_screen.dart';
+import '../../landing/landing_screen.dart';
 
 class LogoutRepository {
   final FirebaseAuth auth = FirebaseAuth.instance;
