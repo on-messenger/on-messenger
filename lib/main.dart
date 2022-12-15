@@ -6,7 +6,7 @@ import 'package:on_messenger/common/utils/colors.dart';
 import 'package:on_messenger/common/widgets/error.dart';
 import 'package:on_messenger/common/widgets/loader.dart';
 import 'package:on_messenger/features/auth/controller/auth_controller.dart';
-import 'package:on_messenger/features/landing/screens/landing_screen.dart';
+import 'package:on_messenger/features/landing/landing_screen.dart';
 import 'package:on_messenger/firebase_options.dart';
 import 'package:on_messenger/router.dart';
 import 'package:on_messenger/mobile_layout_screen.dart';
