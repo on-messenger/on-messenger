@@ -55,12 +55,7 @@ class ChatController {
       var userDataMap =
           await firestore.collection('users').doc(recieverUserId).get();
       recieverUserData = UserModel.fromMap(userDataMap.data()!);
-<<<<<<< HEAD
       userDataMap = await firestore.collection('users').doc(senderUserId).get();
-=======
-      userDataMap = 
-          await firestore.collection('users').doc(senderUserId).get();
->>>>>>> bac0d1285ea17eb62fe02f29730f0797c337db91
       currentUser = UserModel.fromMap(userDataMap.data()!);
     }
 
