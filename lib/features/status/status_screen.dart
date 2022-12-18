@@ -58,11 +58,11 @@ class _FeedScreenState extends State<FeedScreen> {
           Row(
             children: [
               Padding(
-                padding: const EdgeInsets.only(top: 25, left: 25, bottom: 25),
+                padding: const EdgeInsets.only(top: 25, left: 20, bottom: 25),
                 child: ClipRRect(
-                  borderRadius: BorderRadius.circular(50.0),
+                  borderRadius: BorderRadius.circular(40.0),
                   child: CircleAvatar(
-                    radius: 35,
+                    radius: 30,
                     backgroundColor: Theme.of(context).primaryColorLight,
                     backgroundImage: NetworkImage(_urlImageRetrieved),
                   ),
@@ -70,7 +70,7 @@ class _FeedScreenState extends State<FeedScreen> {
               ),
               Padding(
                 padding: const EdgeInsets.only(
-                    top: 30, bottom: 30, right: 30, left: 15),
+                    top: 30, bottom: 30, right: 25, left: 15),
                 child: ActionChip(
                   label: Text(
                     'No que você esta pensando, $_controllerName?',

@@ -84,10 +84,10 @@ class _UserInformationScreenState extends ConsumerState<UserInformationScreen> {
 
     if (name.isNotEmpty) {
       ref.read(authControllerProvider).saveUserDataToFirebase(
-            context,
-            name,
-            image,
-          );
+        context,
+        name,
+        image,
+      );
     }
   }
 

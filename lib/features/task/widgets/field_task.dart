@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:on_messenger/common/utils/colors.dart';
 import '../controller/task_controller.dart';
 
 class BottomTaskField extends ConsumerStatefulWidget {
@@ -21,14 +22,15 @@ class _BottomTaskFieldState extends ConsumerState<BottomTaskField> {
   void showKeyboard() => focusNode.requestFocus();
   void hideKeyboard() => focusNode.unfocus();
 
-  void _addToDoItem(context, String toDo) {
+  void _addToDoItem(context) {
     String recieverEmail = _emailController.text;
+    String todoText = _todoTextController.text;
 
     ref.read(taskControllerProvider).sendTextTask(
         context: context,
         senderId: auth.currentUser!.uid,
         recieverEmail: recieverEmail,
-        todoText: toDo,
+        todoText: todoText,
         isSeen: false,
         isDone: false);
   }
@@ -52,7 +54,7 @@ class _BottomTaskFieldState extends ConsumerState<BottomTaskField> {
               decoration: BoxDecoration(
                 color: Colors.grey,
                 border:
-                    Border.all(color: const Color.fromARGB(255, 237, 224, 224)),
+                Border.all(color: const Color.fromARGB(255, 237, 224, 224)),
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Padding(
@@ -74,7 +76,7 @@ class _BottomTaskFieldState extends ConsumerState<BottomTaskField> {
               decoration: BoxDecoration(
                 color: Colors.grey,
                 border:
-                    Border.all(color: const Color.fromARGB(255, 237, 224, 224)),
+                Border.all(color: const Color.fromARGB(255, 237, 224, 224)),
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Padding(
@@ -91,20 +93,15 @@ class _BottomTaskFieldState extends ConsumerState<BottomTaskField> {
           ),
         ],
       ),
-      Container(
-        margin: const EdgeInsets.only(
-          top: 5,
-          bottom: 20,
-          right: 20,
-        ),
+      const SizedBox(height: 10),
+      Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 25.0),
         child: ElevatedButton(
           onPressed: () {
-            _addToDoItem(context, _todoTextController.text);
+            _addToDoItem(context);
           },
           style: ElevatedButton.styleFrom(
             primary: Colors.blue,
-            minimumSize: const Size(900, 60),
-            maximumSize: const Size(900, 60),
             elevation: 10,
           ),
           child: const Text(

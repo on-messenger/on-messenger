@@ -30,18 +30,56 @@ class TaskController {
     return taskRepository.getTaskStream();
   }
 
+  void deleteTask(String id, String recieverId) async {
+    await firestore
+        .collection('users')
+        .doc(auth.currentUser!.uid)
+        .collection('tasks')
+        .doc(id)
+        .delete();
+
+    await firestore
+        .collection('users')
+        .doc(recieverId)
+        .collection('tasks')
+        .doc(id)
+        .delete();
+  }
+
+  void updateTask(ToDo todo){
+    firestore
+        .collection('users')
+        .doc(todo.senderId)
+        .collection('tasks')
+        .doc(todo.id)
+        .update(todo.toMap());
+
+    firestore
+        .collection('users')
+        .doc(todo.recieverId)
+        .collection('tasks')
+        .doc(todo.id)
+        .update(todo.toMap());
+  }
+
   void _saveTask({
     required String senderId,
     required String recieverId,
+    required String recieverEmail,
     required DateTime timeSent,
     required String id,
     required String todoText,
     required bool isSeen,
     required bool isDone,
   }) async {
+
+    String? senderEmail = auth.currentUser!.email;
+
     final todo = ToDo(
       senderId: auth.currentUser!.uid,
       recieverId: recieverId,
+      senderEmail: senderEmail,
+      recieverEmail: recieverEmail,
       todoText: todoText,
       timeSent: timeSent,
       id: id,
@@ -53,23 +91,19 @@ class TaskController {
         .collection('users')
         .doc(auth.currentUser!.uid)
         .collection('tasks')
-        .doc(recieverId)
-        .collection('todo')
         .doc(id)
         .set(
-          todo.toMap(),
-        );
+      todo.toMap(),
+    );
     // users -> reciever id  -> sender id -> tasks -> message id -> store message
     await firestore
         .collection('users')
         .doc(recieverId)
         .collection('tasks')
-        .doc(auth.currentUser!.uid)
-        .collection('todo')
         .doc(id)
         .set(
-          todo.toMap(),
-        );
+      todo.toMap(),
+    );
   }
 
   void sendTextTask({
@@ -81,9 +115,11 @@ class TaskController {
     required bool isDone,
   }) async {
     try {
-      var userDataMap =
-          await firestore.collection('users').doc(recieverEmail).get();
-      UserModel recieverUserData = UserModel.fromMap(userDataMap.data()!);
+
+      var userDataMap = await firestore.collection('users')
+          .where('email', isEqualTo: recieverEmail)
+          .get();
+      UserModel recieverUserData = UserModel.fromMap(userDataMap.docs.first.data());
 
       var timeSent = DateTime.now();
 
@@ -91,6 +127,7 @@ class TaskController {
 
       _saveTask(
         recieverId: recieverUserData.uid,
+        recieverEmail: recieverEmail,
         todoText: todoText,
         timeSent: timeSent,
         id: id,
@@ -103,15 +140,15 @@ class TaskController {
     }
   }
 
-  void setTaskSeen(
-    BuildContext context,
-    String recieverUserId,
-    String messageId,
-  ) {
-    taskRepository.setTaskSeen(
-      context,
-      recieverUserId,
-      messageId,
-    );
-  }
+// void setTaskSeen(
+//     BuildContext context,
+//     String recieverUserId,
+//     String messageId,
+//     ) {
+//   taskRepository.setTaskSeen(
+//     context,
+//     recieverUserId,
+//     messageId,
+//   );
+// }
 }

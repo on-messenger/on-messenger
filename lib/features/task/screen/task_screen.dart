@@ -37,21 +37,8 @@ class TaskStateScreen extends ConsumerWidget {
     return AppBar(
       backgroundColor: backgroundColor,
       elevation: 0,
-      title: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-        const Icon(
-          Icons.menu,
-          color: Colors.white,
-          size: 30,
-        ),
-        SizedBox(
-          height: 40,
-          width: 40,
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(20),
-            child:
-                Image.asset(auth.currentUser!.photoURL ?? "../assets/icon.png"),
-          ),
-        ),
+      title: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: const [
+        Text('Tarefas'),
       ]),
     );
   }
