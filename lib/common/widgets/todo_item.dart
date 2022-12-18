@@ -1,8 +1,5 @@
-<<<<<<< HEAD
 // ignore_for_file: prefer_typing_uninitialized_variables
 
-=======
->>>>>>> bac0d1285ea17eb62fe02f29730f0797c337db91
 import 'package:flutter/material.dart';
 import '../../models/todo.dart';
 

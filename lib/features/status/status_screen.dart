@@ -3,10 +3,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:on_messenger/common/utils/colors.dart';
-<<<<<<< HEAD:lib/features/status/status_screen.dart
-=======
-import 'package:on_messenger/features/status/screens/status_post.dart';
->>>>>>> bac0d1285ea17eb62fe02f29730f0797c337db91:lib/features/status/screens/status_screen.dart
 import 'package:on_messenger/features/task/screen/task_screen.dart';
 
 class FeedScreen extends StatefulWidget {
@@ -18,7 +14,7 @@ class FeedScreen extends StatefulWidget {
 
 class QuickHelp {
   static goToNavigationScreen(Widget widget, BuildContext context) {
-    Navigator.push(context, MaterialPageRoute(builder: (context)   => widget));
+    Navigator.push(context, MaterialPageRoute(builder: (context) => widget));
   }
 }
 
@@ -88,11 +84,7 @@ class _FeedScreenState extends State<FeedScreen> {
                       context,
                       MaterialPageRoute(
                         builder: QuickHelp.goToNavigationScreen(
-<<<<<<< HEAD:lib/features/status/status_screen.dart
                             TaskStateScreen(), context),
-=======
-                            const Task(), context),
->>>>>>> bac0d1285ea17eb62fe02f29730f0797c337db91:lib/features/status/screens/status_screen.dart
                       ),
                     );
                   },
