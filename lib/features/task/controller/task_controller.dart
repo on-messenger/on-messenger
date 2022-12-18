@@ -1,15 +1,7 @@
-import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:on_messenger/common/enums/message_enum.dart';
-import 'package:on_messenger/common/providers/message_reply_provider.dart';
-import 'package:on_messenger/features/auth/controller/auth_controller.dart';
-import 'package:on_messenger/models/chat_contact.dart';
-import 'package:on_messenger/models/group.dart';
-import 'package:on_messenger/models/message.dart';
 import 'package:on_messenger/models/user_model.dart';
 import 'package:uuid/uuid.dart';
 import '../../../common/utils/utils.dart';
@@ -38,18 +30,56 @@ class TaskController {
     return taskRepository.getTaskStream();
   }
 
+  void deleteTask(String id, String recieverId) async {
+    await firestore
+        .collection('users')
+        .doc(auth.currentUser!.uid)
+        .collection('tasks')
+        .doc(id)
+        .delete();
+
+    await firestore
+        .collection('users')
+        .doc(recieverId)
+        .collection('tasks')
+        .doc(id)
+        .delete();
+  }
+
+  void updateTask(ToDo todo){
+    firestore
+        .collection('users')
+        .doc(todo.senderId)
+        .collection('tasks')
+        .doc(todo.id)
+        .update(todo.toMap());
+
+    firestore
+        .collection('users')
+        .doc(todo.recieverId)
+        .collection('tasks')
+        .doc(todo.id)
+        .update(todo.toMap());
+  }
+
   void _saveTask({
     required String senderId,
     required String recieverId,
+    required String recieverEmail,
     required DateTime timeSent,
     required String id,
     required String todoText,
     required bool isSeen,
     required bool isDone,
   }) async {
+
+    String? senderEmail = auth.currentUser!.email;
+
     final todo = ToDo(
       senderId: auth.currentUser!.uid,
       recieverId: recieverId,
+      senderEmail: senderEmail,
+      recieverEmail: recieverEmail,
       todoText: todoText,
       timeSent: timeSent,
       id: id,
@@ -61,8 +91,6 @@ class TaskController {
         .collection('users')
         .doc(auth.currentUser!.uid)
         .collection('tasks')
-        .doc(recieverId)
-        .collection('todo')
         .doc(id)
         .set(
       todo.toMap(),
@@ -72,8 +100,6 @@ class TaskController {
         .collection('users')
         .doc(recieverId)
         .collection('tasks')
-        .doc(auth.currentUser!.uid)
-        .collection('todo')
         .doc(id)
         .set(
       todo.toMap(),
@@ -89,8 +115,11 @@ class TaskController {
     required bool isDone,
   }) async {
     try {
-      var userDataMap = await firestore.collection('users').doc(recieverEmail).get();
-      UserModel recieverUserData = UserModel.fromMap(userDataMap.data()!);
+
+      var userDataMap = await firestore.collection('users')
+          .where('email', isEqualTo: recieverEmail)
+          .get();
+      UserModel recieverUserData = UserModel.fromMap(userDataMap.docs.first.data());
 
       var timeSent = DateTime.now();
 
@@ -98,6 +127,7 @@ class TaskController {
 
       _saveTask(
         recieverId: recieverUserData.uid,
+        recieverEmail: recieverEmail,
         todoText: todoText,
         timeSent: timeSent,
         id: id,
@@ -110,15 +140,15 @@ class TaskController {
     }
   }
 
-  void setTaskSeen(
-      BuildContext context,
-      String recieverUserId,
-      String messageId,
-      ) {
-    taskRepository.setTaskSeen(
-      context,
-      recieverUserId,
-      messageId,
-    );
-  }
+  // void setTaskSeen(
+  //     BuildContext context,
+  //     String recieverUserId,
+  //     String messageId,
+  //     ) {
+  //   taskRepository.setTaskSeen(
+  //     context,
+  //     recieverUserId,
+  //     messageId,
+  //   );
+  // }
 }

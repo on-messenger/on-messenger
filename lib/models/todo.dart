@@ -1,6 +1,8 @@
 class ToDo {
   String senderId;
   String recieverId;
+  String recieverEmail;
+  String? senderEmail;
   DateTime timeSent;
   String? id;
   String? todoText;
@@ -10,6 +12,8 @@ class ToDo {
   ToDo({
     required this.senderId,
     required this.recieverId,
+    required this.recieverEmail,
+    required this.senderEmail,
     required this.timeSent,
     required this.id,
     required this.todoText,
@@ -33,11 +37,13 @@ class ToDo {
     return ToDo(
         senderId: map['senderId'] ?? '',
         recieverId: map['recieverid'] ?? '',
+        recieverEmail: map['recieverEmail'] ?? '',
+        senderEmail: map['senderEmail'] ?? '',
         timeSent: DateTime.fromMillisecondsSinceEpoch(map['timeSent']),
         todoText: map['todoText'] ?? '',
         id: map['id'] ?? '',
         isSeen: map['isSeen'] ?? false,
-        isDone: map['isDone'] ?? false
+        isDone: map['isDone'] ?? false,
     );
   }
 }

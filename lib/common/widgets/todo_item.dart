@@ -1,25 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../features/task/controller/task_controller.dart';
 import '../../models/todo.dart';
 
 class ToDoItem extends StatelessWidget {
   final ToDo todo;
-  final onToDoChanged;
-  final onDeleteItem;
+  final WidgetRef ref;
+
+  _deleteToDoItem(String? id, String recieverId) {
+    ref.read(taskControllerProvider).deleteTask(id!, recieverId);
+  }
+
+  _handleToDoChange(ToDo todo) {
+    todo.isDone = !todo.isDone;
+    ref.read(taskControllerProvider).updateTask(todo);
+  }
 
   const ToDoItem({
     Key? key,
     required this.todo,
-    required this.onToDoChanged,
-    required this.onDeleteItem,
+    required this.ref,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(bottom: 20),
+      margin: const EdgeInsets.all(10),
       child: ListTile(
         onTap: () {
-          onToDoChanged(todo);
+          _handleToDoChange(todo);
         },
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),
@@ -34,6 +43,14 @@ class ToDoItem extends StatelessWidget {
           todo.todoText!,
           style: TextStyle(
             fontSize: 16,
+            color: Colors.black,
+            decoration: todo.isDone ? TextDecoration.lineThrough : null,
+          ),
+        ),
+        subtitle: Text(
+          todo.recieverEmail,
+          style: TextStyle(
+            fontSize: 12,
             color: Colors.black,
             decoration: todo.isDone ? TextDecoration.lineThrough : null,
           ),
@@ -53,7 +70,7 @@ class ToDoItem extends StatelessWidget {
             icon: const Icon(Icons.delete),
             onPressed: () {
               // print('Clicked on delete icon');
-              onDeleteItem(todo.id);
+              _deleteToDoItem(todo.id, todo.recieverId);
             },
           ),
         ),

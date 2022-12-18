@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:on_messenger/common/widgets/loader.dart';
@@ -13,20 +14,14 @@ class TaskList extends ConsumerStatefulWidget {
 }
 
 class _TaskListState extends ConsumerState<TaskList> {
+  late String recieverEmail;
   final ScrollController _todoController = ScrollController();
+  FirebaseAuth auth = FirebaseAuth.instance;
 
   @override
   void dispose() {
     super.dispose();
     _todoController.dispose();
-  }
-
-  _deleteToDoItem(String id) {
-
-  }
-
-  _handleToDoChange(ToDo todo) {
-    todo.isDone = !todo.isDone;
   }
 
   @override
@@ -43,10 +38,8 @@ class _TaskListState extends ConsumerState<TaskList> {
             itemBuilder: (context, index) {
               final taskData = snapshot.data![index];
               return ToDoItem(
-                onToDoChanged: _handleToDoChange(taskData),
-                onDeleteItem:
-                _deleteToDoItem(taskData.id as String),
                 todo: taskData,
+                ref: ref,
               );
             },
           );
