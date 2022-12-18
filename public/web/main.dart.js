@@ -82271,7 +82271,7 @@ m=(n==null?$.ap=$.bm():n).bo(0,"[DEFAULT]")
 A.aJ(m,$.bN(),!0)
 p=A.aGO(new A.b4(m)).Vp(0)
 n=p.a
-n=A.mv(p.b,n.b.qG(0,n.a.FB("perfil")))
+n=A.mv(p.b,n.b.qG(0,n.a.FB("users")))
 o=n.a
 A.mv(n.b,o.b.qG(0,o.a.FB(A.b(q.f,"_idUserLogged")+".jpg"))).o5(A.N9(A.b(A.b(q.e,"_image").c,"_path"))).gYY().qc(new A.apU(q,new A.apR(q,new A.apT(q))))
 return A.r(null,r)}})
@@ -82293,7 +82293,7 @@ return A.v(A.cj(n,n.gbr().b0("users")).b6(0,A.b(q.f,"_idUserLogged")).hL(0),$asy
 case 2:m=b.fd(0)
 if(m==null)m=t.a.a(m)
 q.d.six(0,m.h(0,"name"))
-if(m.h(0,"urlImage")!=null){q.r=m.h(0,"urlImage")
+if(m.h(0,"profilePic")!=null){q.r=m.h(0,"profilePic")
 q.V(new A.apN(q,m))}return A.r(null,r)}})
 return A.t($async$wS,r)},
 aB(){this.aU()
@@ -82319,7 +82319,7 @@ while(true)switch(s){case 0:m=$.ap
 l=(m==null?$.ap=$.bm():m).bo(0,"[DEFAULT]")
 A.aJ(l,$.bN(),!0)
 p=A.ho(new A.b4(l))
-o=A.a8(["urlImg",a],t.N,t.z)
+o=A.a8(["profilePic",a],t.N,t.z)
 n=A.cj(p,p.gbr().b0("users")).b6(0,A.b(q.a.f,"_idUserLogged"))
 m=A.td(o)
 m.toString
@@ -82360,7 +82360,7 @@ A.apQ.prototype={
 $0(){this.a.w=!1},
 $S:0}
 A.apN.prototype={
-$0(){this.a.r=this.b.h(0,"urlImage")},
+$0(){this.a.r=this.b.h(0,"profilePic")},
 $S:0}
 A.apV.prototype={
 $0(){this.a.p9("galeria")},
