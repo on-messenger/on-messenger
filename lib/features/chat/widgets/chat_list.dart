@@ -52,10 +52,10 @@ class _ChatListState extends ConsumerState<ChatList> {
     return StreamBuilder<List<Message>>(
         stream: widget.isGroupChat
             ? ref
-                .read(chatControllerProvider)
-                .groupChatStream(widget.recieverUserId)
+                .watch(chatControllerProvider)
+                .chatStream(widget.recieverUserId)
             : ref
-                .read(chatControllerProvider)
+                .watch(chatControllerProvider)
                 .chatStream(widget.recieverUserId),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {

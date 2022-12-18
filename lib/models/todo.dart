@@ -35,15 +35,15 @@ class ToDo {
 
   factory ToDo.fromMap(Map<String, dynamic> map) {
     return ToDo(
-        senderId: map['senderId'] ?? '',
-        recieverId: map['recieverid'] ?? '',
-        recieverEmail: map['recieverEmail'] ?? '',
-        senderEmail: map['senderEmail'] ?? '',
-        timeSent: DateTime.fromMillisecondsSinceEpoch(map['timeSent']),
-        todoText: map['todoText'] ?? '',
-        id: map['id'] ?? '',
-        isSeen: map['isSeen'] ?? false,
-        isDone: map['isDone'] ?? false,
+      senderId: map['senderId'] ?? '',
+      recieverId: map['recieverid'] ?? '',
+      recieverEmail: map['recieverEmail'] ?? '',
+      senderEmail: map['senderEmail'] ?? '',
+      timeSent: DateTime.fromMillisecondsSinceEpoch(map['timeSent']),
+      todoText: map['todoText'] ?? '',
+      id: map['id'] ?? '',
+      isSeen: map['isSeen'] ?? false,
+      isDone: map['isDone'] ?? false,
     );
   }
 }

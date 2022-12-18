@@ -62,7 +62,7 @@ class _ConfigurationState extends State<Configuration> {
   Future _uploadImage() async {
     FirebaseStorage storage = FirebaseStorage.instance;
     Reference dirRoot = storage.ref();
-    Reference arquivo = dirRoot.child("perfil").child("$_idUserLogged.jpg");
+    Reference arquivo = dirRoot.child("users").child("$_idUserLogged.jpg");
 
     final File imagefile = File(_image.path);
 
@@ -71,7 +71,7 @@ class _ConfigurationState extends State<Configuration> {
     _updateUrlImageFirestore(String urlImg) async {
       FirebaseFirestore db = FirebaseFirestore.instance;
 
-      Map<String, dynamic> updateData = {'urlImg': urlImg};
+      Map<String, dynamic> updateData = {'profilePic': urlImg};
 
       DocumentReference ref = db.collection('users').doc(_idUserLogged);
       await ref.update(updateData);
@@ -111,10 +111,10 @@ class _ConfigurationState extends State<Configuration> {
     Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
     _controllerName.text = data["name"];
 
-    if (data["urlImage"] != null) {
-      _urlImageRetrieved = data["urlImage"];
+    if (data["profilePic"] != null) {
+      _urlImageRetrieved = data["profilePic"];
       setState(() {
-        _urlImageRetrieved = data["urlImage"];
+        _urlImageRetrieved = data["profilePic"];
       });
     }
   }

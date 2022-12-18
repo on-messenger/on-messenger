@@ -6,6 +6,7 @@ import 'package:on_messenger/common/utils/colors.dart';
 import 'package:on_messenger/features/task/widgets/task_list.dart';
 import '../widgets/field_task.dart';
 
+// ignore: must_be_immutable
 class TaskStateScreen extends ConsumerWidget {
   static const routeName = '/task-screen';
   FirebaseAuth auth = FirebaseAuth.instance;
@@ -37,7 +38,7 @@ class TaskStateScreen extends ConsumerWidget {
       backgroundColor: backgroundColor,
       elevation: 0,
       title: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: const [
-        Text('Tarefas')
+        Text('Tarefas'),
       ]),
     );
   }

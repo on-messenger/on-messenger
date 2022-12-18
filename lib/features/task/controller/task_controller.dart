@@ -140,15 +140,15 @@ class TaskController {
     }
   }
 
-  // void setTaskSeen(
-  //     BuildContext context,
-  //     String recieverUserId,
-  //     String messageId,
-  //     ) {
-  //   taskRepository.setTaskSeen(
-  //     context,
-  //     recieverUserId,
-  //     messageId,
-  //   );
-  // }
+// void setTaskSeen(
+//     BuildContext context,
+//     String recieverUserId,
+//     String messageId,
+//     ) {
+//   taskRepository.setTaskSeen(
+//     context,
+//     recieverUserId,
+//     messageId,
+//   );
+// }
 }

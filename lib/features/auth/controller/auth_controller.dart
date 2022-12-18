@@ -43,7 +43,7 @@ class AuthController {
             (route) => false,
       );
     } on FirebaseAuthException catch (e, s) {
-    _handleFirebaseLoginWithCredentialsException(e, s, context);
+      _handleFirebaseLoginWithCredentialsException(e, s, context);
 
     } on Exception catch (e) {
       e.toString();

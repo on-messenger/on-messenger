@@ -9,7 +9,6 @@ import 'package:on_messenger/common/providers/message_reply_provider.dart';
 import 'package:on_messenger/features/auth/controller/auth_controller.dart';
 import 'package:on_messenger/features/chat/repositories/chat_repository.dart';
 import 'package:on_messenger/models/chat_contact.dart';
-import 'package:on_messenger/models/group.dart';
 import 'package:on_messenger/models/message.dart';
 import 'package:on_messenger/models/user_model.dart';
 import 'package:uuid/uuid.dart';
@@ -36,16 +35,8 @@ class ChatController {
     return chatRepository.getChatContacts();
   }
 
-  Stream<List<Group>> chatGroups() {
-    return chatRepository.getChatGroups();
-  }
-
   Stream<List<Message>> chatStream(String recieverUserId) {
     return chatRepository.getChatStream(recieverUserId);
-  }
-
-  Stream<List<Message>> groupChatStream(String groupId) {
-    return chatRepository.getGroupChatStream(groupId);
   }
 
   void _saveMessageToMessageSubcollection({
@@ -64,8 +55,7 @@ class ChatController {
       var userDataMap =
           await firestore.collection('users').doc(recieverUserId).get();
       recieverUserData = UserModel.fromMap(userDataMap.data()!);
-      userDataMap = 
-          await firestore.collection('users').doc(senderUserId).get();
+      userDataMap = await firestore.collection('users').doc(senderUserId).get();
       currentUser = UserModel.fromMap(userDataMap.data()!);
     }
 
@@ -235,30 +225,6 @@ class ChatController {
             senderUserData: value!,
             messageEnum: messageEnum,
             ref: ref,
-            messageReply: messageReply,
-            isGroupChat: isGroupChat,
-          ),
-        );
-    ref.read(messageReplyProvider.state).update((state) => null);
-  }
-
-  void sendGIFMessage(
-    BuildContext context,
-    String gifUrl,
-    String recieverUserId,
-    bool isGroupChat,
-  ) {
-    final messageReply = ref.read(messageReplyProvider);
-    int gifUrlPartIndex = gifUrl.lastIndexOf('-') + 1;
-    String gifUrlPart = gifUrl.substring(gifUrlPartIndex);
-    String newgifUrl = 'https://i.giphy.com/media/$gifUrlPart/200.gif';
-
-    ref.read(userDataAuthProvider).whenData(
-          (value) => chatRepository.sendGIFMessage(
-            context: context,
-            gifUrl: newgifUrl,
-            recieverUserId: recieverUserId,
-            senderUser: value!,
             messageReply: messageReply,
             isGroupChat: isGroupChat,
           ),

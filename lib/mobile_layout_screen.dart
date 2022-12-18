@@ -4,11 +4,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:on_messenger/common/utils/colors.dart';
 import 'package:on_messenger/features/auth/controller/auth_controller.dart';
 import 'package:on_messenger/features/configuration/configuration_page.dart';
-import 'package:on_messenger/features/search_contacts/screen/page_contact.dart';
+import 'package:on_messenger/features/search_contacts/page_contact.dart';
 import 'package:on_messenger/features/chat/widgets/contacts_list.dart';
 import 'package:on_messenger/features/auth/repository/logout_repository.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
-import 'package:on_messenger/features/status/screens/status_screen.dart';
+import 'package:on_messenger/features/status/status_screen.dart';
 
 class MobileLayoutScreen extends ConsumerStatefulWidget {
   const MobileLayoutScreen({Key? key}) : super(key: key);

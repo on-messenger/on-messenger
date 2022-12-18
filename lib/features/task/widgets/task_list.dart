@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:on_messenger/common/widgets/loader.dart';
@@ -16,7 +15,6 @@ class TaskList extends ConsumerStatefulWidget {
 class _TaskListState extends ConsumerState<TaskList> {
   late String recieverEmail;
   final ScrollController _todoController = ScrollController();
-  FirebaseAuth auth = FirebaseAuth.instance;
 
   @override
   void dispose() {

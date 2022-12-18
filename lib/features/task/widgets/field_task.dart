@@ -54,7 +54,7 @@ class _BottomTaskFieldState extends ConsumerState<BottomTaskField> {
               decoration: BoxDecoration(
                 color: Colors.grey,
                 border:
-                    Border.all(color: const Color.fromARGB(255, 237, 224, 224)),
+                Border.all(color: const Color.fromARGB(255, 237, 224, 224)),
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Padding(
@@ -76,7 +76,7 @@ class _BottomTaskFieldState extends ConsumerState<BottomTaskField> {
               decoration: BoxDecoration(
                 color: Colors.grey,
                 border:
-                    Border.all(color: const Color.fromARGB(255, 237, 224, 224)),
+                Border.all(color: const Color.fromARGB(255, 237, 224, 224)),
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Padding(
