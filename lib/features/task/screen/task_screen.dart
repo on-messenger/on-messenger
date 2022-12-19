@@ -37,17 +37,11 @@ class TaskStateScreen extends ConsumerWidget {
     return AppBar(
       backgroundColor: backgroundColor,
       elevation: 0,
-<<<<<<< HEAD
       title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: const [
             Text('Tarefas'),
           ]),
-=======
-      title: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: const [
-        Text('Tarefas'),
-      ]),
->>>>>>> 7df9ffe777a8f77a2162c3587afda30429331abd
     );
   }
 }

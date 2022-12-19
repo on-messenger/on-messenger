@@ -128,7 +128,7 @@ class _ConfigurationState extends State<Configuration> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Configuracoes")),
+      appBar: AppBar(title: const Text("Configurações")),
       body: Container(
         padding: const EdgeInsets.all(16),
         child: Center(
@@ -148,23 +148,37 @@ class _ConfigurationState extends State<Configuration> {
                     ? NetworkImage(_urlImageRetrieved)
                     : null,
               ),
+              const SizedBox(height: 16),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   TextButton(
-                    child: const Text("Galeria"),
+                    child: const Text(
+                      'Galeria',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
+                      ),
+                    ),
                     onPressed: () {
-                      _retrieveImage("galeria");
+                      _retrieveImage('galeria');
                     },
                   ),
                   TextButton(
-                    child: const Text("Camera"),
+                    child: const Text(
+                      'Camera',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
+                      ),
+                    ),
                     onPressed: () {
-                      _retrieveImage("camera");
+                      _retrieveImage('camera');
                     },
                   )
                 ],
               ),
+              const SizedBox(height: 16),
               Padding(
                 padding: const EdgeInsets.only(bottom: 8),
                 child: TextField(
