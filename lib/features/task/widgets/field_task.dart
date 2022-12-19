@@ -85,7 +85,7 @@ class _BottomTaskFieldState extends ConsumerState<BottomTaskField> {
                   controller: _emailController,
                   decoration: const InputDecoration(
                     border: InputBorder.none,
-                    hintText: 'Digite o email do funcionario',
+                    hintText: 'Digite o email do funcionário',
                   ),
                 ),
               ),
@@ -102,7 +102,11 @@ class _BottomTaskFieldState extends ConsumerState<BottomTaskField> {
           },
           style: ElevatedButton.styleFrom(
             primary: Colors.blue,
+<<<<<<< HEAD
+            elevation: 20,
+=======
             elevation: 10,
+>>>>>>> 7df9ffe777a8f77a2162c3587afda30429331abd
           ),
           child: const Text(
             '+',
@@ -112,6 +116,7 @@ class _BottomTaskFieldState extends ConsumerState<BottomTaskField> {
           ),
         ),
       ),
+      const SizedBox(height: 25),
     ]);
   }
 }

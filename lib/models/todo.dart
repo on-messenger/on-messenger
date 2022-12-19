@@ -9,6 +9,18 @@ class ToDo {
   bool isSeen;
   bool isDone;
 
+<<<<<<< HEAD
+  ToDo(
+      {required this.senderId,
+      required this.recieverId,
+      required this.recieverEmail,
+      required this.senderEmail,
+      required this.timeSent,
+      required this.id,
+      required this.todoText,
+      required this.isSeen,
+      required this.isDone});
+=======
   ToDo({
     required this.senderId,
     required this.recieverId,
@@ -20,11 +32,14 @@ class ToDo {
     required this.isSeen,
     required this.isDone
   });
+>>>>>>> 7df9ffe777a8f77a2162c3587afda30429331abd
 
   Map<String, dynamic> toMap() {
     return {
       'senderId': senderId,
       'recieverid': recieverId,
+      'recieverEmail': recieverEmail,
+      'senderEmail': senderEmail,
       'timeSent': timeSent.millisecondsSinceEpoch,
       'id': id,
       'todoText': todoText,

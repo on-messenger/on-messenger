@@ -67,12 +67,13 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Image.asset(
-                'assets/bg.png',
+                'assets/splash.png',
                 height: 200,
                 width: 200,
               ),
+              const SizedBox(height: 10),
               const Text('Crie sua conta'),
-              const SizedBox(height: 5),
+              const SizedBox(height: 15),
               Column(
                 children: [
                   const SizedBox(width: 10),
@@ -97,7 +98,7 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                       ),
                     ),
                   ),
-                  const SizedBox(height: 10),
+                  const SizedBox(height: 20),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 25.0),
                     child: Container(
@@ -119,7 +120,7 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                       ),
                     ),
                   ),
-                  const SizedBox(height: 10),
+                  const SizedBox(height: 20),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 25.0),
                     child: Container(
