@@ -26,7 +26,7 @@ class LandingScreen extends StatelessWidget {
           children: [
             const SizedBox(height: 50),
             const Text(
-              'Bem-vindo ao On',
+              'Bem-vindo ao',
               style: TextStyle(
                 fontSize: 33,
                 fontWeight: FontWeight.w600,
@@ -34,22 +34,17 @@ class LandingScreen extends StatelessWidget {
             ),
             SizedBox(height: size.height / 18),
             Image.asset(
-              'assets/bg.png',
+              'assets/splash.png',
               height: 200,
               width: 200,
             ),
             SizedBox(height: size.height / 100),
             const Padding(
               padding: EdgeInsets.all(15.0),
-              child: Text(
-                'Leia nossa política de privacidade. Toque em "Concordar e continuar" para aceitar os Termos de Serviço.',
-                style: TextStyle(color: Colors.grey),
-                textAlign: TextAlign.center,
-              ),
             ),
             const SizedBox(height: 0),
             Padding(
-              padding: const EdgeInsets.all(15.0),
+              padding: const EdgeInsets.all(20.0),
               child: SizedBox(
                 child: CustomButton(
                   text: 'CONCORDE E CONTINUE',

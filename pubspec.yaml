@@ -66,12 +66,12 @@ flutter_native_splash:
   ios: true
 
 flutter_icons:
-  image_path: "assets/icon.png"
+  image_path: "assets/splash.png"
   ios: true
   remove_alpha_ios: true
   android: "launcher_icon"
   adaptive_icon_background: "#004E92"
-  adaptive_icon_foreground: "assets/icon-android.png"
+  adaptive_icon_foreground: "assets/splash.png"
 
 dev_dependencies:
   change_app_package_name: ^1.1.0
@@ -98,10 +98,7 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/backgroundImage.png
-    - assets/bg.png
     - assets/splash.png
-    - assets/icon.png
-    - assets/icon-android.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

@@ -17,7 +17,6 @@ class LoginScreen extends ConsumerStatefulWidget {
 class _LoginScreenState extends ConsumerState<LoginScreen> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
-  
 
   @override
   void dispose() {
@@ -29,9 +28,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     String email = emailController.text.trim();
     String password = passwordController.text.trim();
     if (password.isNotEmpty && email.isNotEmpty) {
-      ref
-          .read(authControllerProvider)
-          .loginWithEmail(context, email, password);
+      ref.read(authControllerProvider).loginWithEmail(context, email, password);
     } else {
       showSnackBar(context: context, content: 'Preencha todos os campos');
     }
@@ -56,15 +53,16 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
             // crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               const Text('On precisará verificar seu e-mail e senha.'),
-              const SizedBox(height: 5),
+              const SizedBox(height: 10),
               Column(
                 children: [
                   Image.asset(
-                    'assets/bg.png',
+                    'assets/splash.png',
                     height: 200,
                     width: 200,
                   ),
-                  const SizedBox(width: 10),
+                  const SizedBox(width: 20),
+                  const SizedBox(height: 20),
                   //email
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 25.0),
@@ -87,7 +85,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                       ),
                     ),
                   ),
-                  const SizedBox(height: 10),
+                  const SizedBox(height: 20),
 
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 25.0),
@@ -110,7 +108,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                       ),
                     ),
                   ),
-                  const SizedBox(height: 10),
+                  const SizedBox(height: 15),
 
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 25.0),
@@ -136,7 +134,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                       ],
                     ),
                   ),
-                  const SizedBox(height: 10),
+                  const SizedBox(height: 15),
 
                   //button
                   Padding(

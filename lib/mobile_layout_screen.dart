@@ -8,7 +8,7 @@ import 'package:on_messenger/features/search_contacts/page_contact.dart';
 import 'package:on_messenger/features/chat/widgets/contacts_list.dart';
 import 'package:on_messenger/features/auth/repository/logout_repository.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
-import 'package:on_messenger/features/status/status_screen.dart';
+import 'package:on_messenger/features/task/screen/task_screen.dart';
 
 class MobileLayoutScreen extends ConsumerStatefulWidget {
   const MobileLayoutScreen({Key? key}) : super(key: key);
@@ -63,10 +63,10 @@ class _MobileLayoutScreenState extends ConsumerState<MobileLayoutScreen>
     }
   }
 
-  static const List<Widget> _widgetOptions = <Widget>[
-    ContactsList(),
-    FeedScreen(),
-    PageContact(),
+  static final List<Widget> _widgetOptions = <Widget>[
+    const ContactsList(),
+    TaskStateScreen(),
+    const PageContact(),
   ];
 
   void _onItemTapped(int index) {
