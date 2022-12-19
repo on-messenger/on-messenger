@@ -1,7 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:on_messenger/common/utils/colors.dart';
 import '../controller/task_controller.dart';
 
 class BottomTaskField extends ConsumerStatefulWidget {
@@ -54,7 +53,7 @@ class _BottomTaskFieldState extends ConsumerState<BottomTaskField> {
               decoration: BoxDecoration(
                 color: Colors.grey,
                 border:
-                Border.all(color: const Color.fromARGB(255, 237, 224, 224)),
+                    Border.all(color: const Color.fromARGB(255, 237, 224, 224)),
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Padding(
@@ -76,7 +75,7 @@ class _BottomTaskFieldState extends ConsumerState<BottomTaskField> {
               decoration: BoxDecoration(
                 color: Colors.grey,
                 border:
-                Border.all(color: const Color.fromARGB(255, 237, 224, 224)),
+                    Border.all(color: const Color.fromARGB(255, 237, 224, 224)),
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Padding(
@@ -102,11 +101,7 @@ class _BottomTaskFieldState extends ConsumerState<BottomTaskField> {
           },
           style: ElevatedButton.styleFrom(
             primary: Colors.blue,
-<<<<<<< HEAD
             elevation: 20,
-=======
-            elevation: 10,
->>>>>>> 7df9ffe777a8f77a2162c3587afda30429331abd
           ),
           child: const Text(
             '+',
